@@ -60,19 +60,25 @@
 ## 6. CASA Control Results
 {{CONTROL_RESULTS_SUMMARY}}
 
-## 7. Findings Summary
+## 7. Evidence Adjudication and Quality Review
+{{ADJUDICATION_SUMMARY}}
+
+## 8. Findings Summary
 {{FINDINGS_SUMMARY}}
 
-## 8. Detailed Findings
+## 9. Detailed Findings
 {{DETAILED_FINDINGS}}
 
-## 9. Remediation and Retest Status
+## 10. Remediation, Work Items and Retest Status
 {{REMEDIATION_RETEST}}
 
-## 10. Limitations and Reliance
+## 11. Regression / Baseline Status
+{{REGRESSION_SUMMARY}}
+
+## 12. Limitations and Reliance
 {{LIMITATIONS}}
 
-## 11. Important Disclaimer and Reliance Limitations
+## 13. Important Disclaimer and Reliance Limitations
 
 {{FULL_DISCLAIMER}}
 
@@ -88,5 +94,11 @@
 ## Appendix D - Test Procedure Traceability
 {{TEST_PROCEDURE_TRACEABILITY}}
 
-## Appendix E - Assessment Manifest
+## Appendix E - Adjudication Register
+{{ADJUDICATION_REGISTER}}
+
+## Appendix F - Finding Ticket / Work Item Register
+{{TICKET_REGISTER}}
+
+## Appendix G - Assessment Manifest
 {{ASSESSMENT_MANIFEST}}
