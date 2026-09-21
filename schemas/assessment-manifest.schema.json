@@ -12,6 +12,7 @@
     "target_url": {"type": ["string", "null"]},
     "authorization_status": {"enum": ["authorized-runtime", "source-review-only", "unknown"]},
     "ticket_mode": {"enum": ["off", "queue", "github", "jira", "auto"]},
+    "external_ticket_creation_authorized": {"type": "boolean"},
     "casa_component_version": {"type": "string"},
     "upstream_release": {"type": "string"},
     "specification_hash": {"type": ["string", "null"]},
