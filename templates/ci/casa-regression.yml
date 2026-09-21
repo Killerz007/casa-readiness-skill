@@ -1,0 +1,43 @@
+name: CASA regression check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  casa-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout application
+        uses: actions/checkout@v4
+
+      - name: Checkout CASA readiness skill
+        uses: actions/checkout@v4
+        with:
+          repository: Killerz007/casa-readiness-skill
+          path: .casa-skill
+
+      # PROJECT-SPECIFIC STEP:
+      # Run the repeatable security tests/scanners approved for your CASA baseline
+      # and produce .casa/current/04-casa-control-matrix.csv plus
+      # .casa/current/05-findings-register.jsonl.
+      #
+      # Example:
+      # - run: npm ci && npm run casa:regression
+
+      - name: Compare CASA baseline
+        run: |
+          python .casa-skill/scripts/compare_assessments.py \
+            --baseline .casa/baseline \
+            --current .casa/current \
+            --output .casa/regression
+
+      - name: Upload regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: casa-regression
+          path: .casa/regression/
