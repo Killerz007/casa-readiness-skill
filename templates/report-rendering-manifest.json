@@ -1,0 +1,30 @@
+{
+  "canonical_source": {
+    "path": "10-casa-readiness-report.md",
+    "sha256": "{{CANONICAL_SHA256}}"
+  },
+  "renderer": {
+    "capability": "{{REPORT_CAPABILITY}}",
+    "tool": "{{RENDERER_TOOL}}",
+    "version": "{{RENDERER_VERSION}}"
+  },
+  "outputs": {
+    "docx": {
+      "status": "{{DOCX_STATUS}}",
+      "path": "10-casa-readiness-report.docx",
+      "sha256": "{{DOCX_SHA256}}",
+      "pages": null
+    },
+    "pdf": {
+      "status": "{{PDF_STATUS}}",
+      "path": "10-casa-readiness-report.pdf",
+      "sha256": "{{PDF_SHA256}}",
+      "pages": "{{PDF_PAGES}}"
+    }
+  },
+  "rendered_at": "{{RENDERED_AT}}",
+  "visual_qa": {
+    "status": "{{VISUAL_QA_STATUS}}",
+    "notes": "{{VISUAL_QA_NOTES}}"
+  }
+}
