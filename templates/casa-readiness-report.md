@@ -7,7 +7,7 @@
 **CASA component version:** {{CASA_VERSION}}  
 **Upstream release:** {{UPSTREAM_RELEASE}}  
 
-> This report is an independent readiness/pre-assessment review. It is not an App Defense Alliance laboratory certification and does not represent Google approval.
+> **Independent readiness assessment notice:** This report is an independent CASA readiness/pre-assessment review. It is not an official App Defense Alliance laboratory assessment, does not grant CASA certification or any assurance level, and does not constitute Google OAuth verification or Google approval. The preparer is not affiliated with, endorsed by, or acting on behalf of Google or the App Defense Alliance. Conclusions are limited to the stated scope, pinned application version/commit, environment, evidence and procedures performed as of the report date. See **Important Disclaimer and Reliance Limitations** below.
 
 ## 1. Executive Summary
 
@@ -18,6 +18,8 @@
 **{{READINESS_CONCLUSION}}**
 
 {{CONCLUSION_BASIS}}
+
+> This readiness conclusion is preparatory only. Google, the App Defense Alliance and authorized laboratories independently determine verification, assessment and certification outcomes and may require additional evidence or testing.
 
 ### Results overview
 
@@ -69,6 +71,10 @@
 
 ## 10. Limitations and Reliance
 {{LIMITATIONS}}
+
+## 11. Important Disclaimer and Reliance Limitations
+
+{{FULL_DISCLAIMER}}
 
 ## Appendix A - Full CASA Control Matrix
 {{CONTROL_MATRIX}}
