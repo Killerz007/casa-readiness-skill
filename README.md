@@ -17,6 +17,7 @@ The skill gives an AI coding/security agent a controlled methodology for:
 - producing control-by-control evidence and defensible Pass / Fail / N/A / Blocked conclusions;
 - documenting findings with severity, evidence, reproduction steps, CASA mapping, CWE mapping, remediation and retest criteria;
 - producing a formal assurance-style report and evidence index suitable for management review and external-assessor preparation;
+- automatically rendering the final report as synchronized Markdown, DOCX and PDF using the executing AI environment's professional report/document-generation capabilities;
 - tracking official CASA specification changes monthly and opening a review pull request when released CASA material changes.
 
 ## Current pinned CASA baseline
@@ -59,7 +60,10 @@ casa-assessment/
     08-scanner-register.csv
     09-evidence-index.csv
     10-casa-readiness-report.md
+    10-casa-readiness-report.docx
+    10-casa-readiness-report.pdf
     11-test-procedure-traceability.csv
+    12-report-rendering-manifest.json
     evidence/
       raw/
       normalized/
@@ -69,6 +73,8 @@ casa-assessment/
 ```
 
 The report conclusion must use readiness language such as **Ready for independent CASA assessment**, **Not ready**, or **Assessment incomplete**. It must never state that the application is CASA certified unless an authorized external body has actually issued that certification.
+
+For full assessments, the AI must first discover and use an available professional report-writing/document-layout capability to generate the DOCX and PDF from the same frozen report content. The report includes mandatory independent-assessment, non-affiliation, non-certification, scope/reliance and no-security-guarantee disclaimers. See `references/report-artifact-generation.md` and `templates/report-disclaimer.md`.
 
 ## Monthly upstream tracking
 
