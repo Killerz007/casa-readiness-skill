@@ -33,7 +33,9 @@ jobs:
           python .casa-skill/scripts/compare_assessments.py \
             --baseline .casa/baseline \
             --current .casa/current \
-            --output .casa/regression
+            --output .casa/regression \
+            --partial \
+            --strict-scope
 
       - name: Upload regression evidence
         if: always()
