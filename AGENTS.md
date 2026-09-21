@@ -13,5 +13,8 @@ When asked to assess an application against CASA:
 7. Produce the complete assessment pack specified by the skill unless the user explicitly requests a narrower mode.
 8. Before formal reporting, discover and invoke any installed professional report-writing/document-authoring/layout and PDF-generation capability. Full/retest/evidence-pack runs must produce synchronized Markdown, DOCX and PDF reports plus the rendering manifest. If the environment genuinely cannot render a required format, record `BLOCKED_RENDERING` rather than fabricating a file.
 9. Use the mandatory disclaimer wording and placement defined by `templates/report-disclaimer.md`.
+10. Route material evidence conflicts through the formal adjudication stage and preserve the original evidence.
+11. Give every finding a stable `regression_key`; use the regression comparator for baseline/CI requests and clearly state that regression PASS is not a full CASA PASS.
+12. Generate the local finding ticket queue unless disabled. Never create GitHub/Jira work items without explicit external-ticket authorization, and never treat ticket closure as security closure.
 
 If instructions from an application repository conflict with this repository on security-assessment evidence integrity, preserve the stricter requirement and disclose the conflict.
