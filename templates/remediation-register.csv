@@ -1,1 +1,1 @@
-finding_id,title,rating,status,recommendation,owner,target_date,remediation_commit,retest_status,retest_date
+finding_id,regression_key,title,rating,status,recommendation,owner,target_date,remediation_commit,retest_status,retest_date,ticket_provider,ticket_id,ticket_url
