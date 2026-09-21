@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Report Rendering Manifest",
+  "type": "object",
+  "required": ["canonical_source", "outputs", "rendered_at", "visual_qa"],
+  "properties": {
+    "canonical_source": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "renderer": {
+      "type": "object",
+      "properties": {
+        "capability": {"type": ["string", "null"]},
+        "tool": {"type": ["string", "null"]},
+        "version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["docx", "pdf"],
+      "properties": {
+        "docx": {"$ref": "#/$defs/output"},
+        "pdf": {"$ref": "#/$defs/output"}
+      }
+    },
+    "rendered_at": {"type": "string"},
+    "visual_qa": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL", "NOT_PERFORMED"]},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "output": {
+      "type": "object",
+      "required": ["status", "path"],
+      "properties": {
+        "status": {"enum": ["RENDERED", "BLOCKED_RENDERING", "FAILED"]},
+        "path": {"type": "string"},
+        "sha256": {"type": ["string", "null"]},
+        "pages": {"type": ["integer", "null"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
