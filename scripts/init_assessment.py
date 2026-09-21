@@ -13,6 +13,7 @@ def main():
     ap.add_argument('--mode', choices=['scope','full','retest','evidence-pack','delta','regression'], default='full')
     ap.add_argument('--authorization', choices=['authorized-runtime','source-review-only','unknown'], default='unknown')
     ap.add_argument('--ticket-mode', choices=['off','queue','github','jira','auto'], default='queue')
+    ap.add_argument('--authorize-ticket-creation', action='store_true')
     ap.add_argument('--output-root', default='casa-assessment')
     args=ap.parse_args()
     root=Path(__file__).resolve().parents[1]
@@ -31,6 +32,7 @@ def main():
       'target_url':args.target_url or None,
       'authorization_status':args.authorization,
       'ticket_mode':args.ticket_mode,
+      'external_ticket_creation_authorized':bool(args.authorize_ticket_creation),
       'started_at_utc':datetime.now(timezone.utc).isoformat(),
       'casa_component_version':manifest['casa_component_version'],
       'upstream_release':manifest['latest_repository_release'],
