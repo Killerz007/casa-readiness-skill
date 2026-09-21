@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Finding Ticket Queue",
+  "type": "object",
+  "required": ["generated_at", "ticket_creation_authorized", "tickets"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "assessment_commit": {"type": ["string", "null"]},
+    "ticket_creation_authorized": {"type": "boolean"},
+    "note": {"type": "string"},
+    "tickets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "regression_key", "title", "severity", "recommended_priority", "body"],
+        "properties": {
+          "finding_id": {"type": ["string", "null"]},
+          "regression_key": {"type": "string"},
+          "title": {"type": "string"},
+          "severity": {"type": "string"},
+          "recommended_priority": {"type": "string"},
+          "casa_controls": {"type": "array"},
+          "dedupe_search_terms": {"type": "array"},
+          "body": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
