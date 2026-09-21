@@ -2,6 +2,7 @@
 
 | Field | Detail |
 |---|---|
+| Regression key | `{{REGRESSION_KEY}}` |
 | Rating | {{RATING}} |
 | Status | {{STATUS}} |
 | CASA requirement(s) | {{CASA_IDS}} |
@@ -33,6 +34,14 @@
 ## Retest Criteria
 
 {{RETEST_CRITERIA}}
+
+## Adjudication References
+
+{{ADJUDICATION_REFERENCES}}
+
+## Ticket / Work Item References
+
+{{TICKET_REFERENCES}}
 
 ## Evidence References
 
