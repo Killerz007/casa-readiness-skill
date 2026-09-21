@@ -15,7 +15,10 @@ The skill gives an AI coding/security agent a controlled methodology for:
 - orchestrating SAST, secret, dependency, configuration and DAST tooling where available;
 - executing the applicable CASA AL2 test procedures in a controlled, authorized test environment;
 - producing control-by-control evidence and defensible Pass / Fail / N/A / Blocked conclusions;
-- documenting findings with severity, evidence, reproduction steps, CASA mapping, CWE mapping, remediation and retest criteria;
+- formally adjudicating conflicts between scanners, source review, runtime testing and reviewers;
+- documenting findings with stable regression keys, severity, evidence, reproduction steps, CASA mapping, CWE mapping, remediation and retest criteria;
+- comparing future commits against an accepted CASA readiness baseline through optional regression CI;
+- generating a portable GitHub/Jira-ready finding queue and, when explicitly authorized, creating/updating external work items;
 - producing a formal assurance-style report and evidence index suitable for management review and external-assessor preparation;
 - automatically rendering the final report as synchronized Markdown, DOCX and PDF using the executing AI environment's professional report/document-generation capabilities;
 - tracking official CASA specification changes monthly and opening a review pull request when released CASA material changes.
@@ -54,6 +57,8 @@ casa-assessment/
     02-scope-and-architecture.md
     03-google-oauth-assessment.md
     04-casa-control-matrix.csv
+    04-adjudication-log.jsonl
+    05-findings-register.jsonl
     05-detailed-findings.md
     06-remediation-register.csv
     07-retest-results.md
@@ -64,6 +69,10 @@ casa-assessment/
     10-casa-readiness-report.pdf
     11-test-procedure-traceability.csv
     12-report-rendering-manifest.json
+    13-finding-ticket-queue.json
+    13-finding-ticket-queue.md
+    14-regression-summary.json   # regression mode / CI
+    14-regression-summary.md     # regression mode / CI
     evidence/
       raw/
       normalized/
@@ -107,6 +116,14 @@ The skill is tool-agnostic. Where available it can orchestrate:
 - framework-native tests and custom authorization/OAuth tests
 
 Scanner output is supporting evidence. A scanner alone cannot mark a CASA control Pass.
+
+## Adjudication, regression CI and work-item integration
+
+Material conflicts between static review, runtime evidence, scanners or reviewers are recorded in a formal adjudication log rather than being silently overwritten.
+
+A completed assessment can be retained as an accepted internal baseline. Future CI runs can compare repeatable security procedures against that baseline with `scripts/compare_assessments.py`. A regression PASS only means no configured regression was detected in the procedures compared; it is not a fresh full CASA assessment.
+
+Open findings can be converted into a portable ticket queue with `scripts/export_ticket_queue.py`. External GitHub Issues or Jira tickets are created only when explicitly authorized, and closing a ticket never substitutes for security retesting.
 
 ## Licensing
 
