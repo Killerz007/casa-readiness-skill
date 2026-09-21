@@ -27,6 +27,14 @@ Include:
 - readiness conclusion;
 - material limitations.
 
+## Adjudication and engineering traceability
+
+The formal report should disclose material adjudications that changed or confirmed a control/finding conclusion. Summarize the disputed evidence, final decision and limitations without reproducing the entire internal review log.
+
+For each open finding, include the stable regression key and any external GitHub/Jira work-item reference that was created. Work-item status is project-management context only; security closure remains based on retest evidence.
+
+When the run is a regression/CI assessment, include a prominent limitation that a regression PASS is not a fresh full CASA readiness conclusion.
+
 ## Detailed finding structure
 
 **Finding ID and title**
