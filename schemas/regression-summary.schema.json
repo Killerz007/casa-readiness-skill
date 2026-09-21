@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Regression Summary",
+  "type": "object",
+  "required": ["generated_at", "baseline", "current", "blocking_regressions", "scope_changes", "improvements", "result"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "baseline": {"type": "string"},
+    "current": {"type": "string"},
+    "partial_comparison": {"type": "boolean"},
+    "minimum_finding_severity": {"type": "string"},
+    "blocking_regressions": {"type": "array", "items": {"type": "object"}},
+    "scope_changes": {"type": "array", "items": {"type": "object"}},
+    "improvements": {"type": "array", "items": {"type": "object"}},
+    "result": {"enum": ["PASS", "FAIL"]}
+  },
+  "additionalProperties": true
+}
