@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Evidence Record",
+  "type": "object",
+  "required": ["evidence_id", "control_ids", "type", "source", "timestamp", "procedure", "observed_result", "conclusion"],
+  "properties": {
+    "evidence_id": {"type": "string"},
+    "control_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "type": {"enum": ["code", "configuration", "runtime", "scanner", "screenshot", "documentation", "architecture", "other"]},
+    "source": {"type": "string"},
+    "application_commit_sha": {"type": ["string", "null"]},
+    "environment": {"type": ["string", "null"]},
+    "timestamp": {"type": "string"},
+    "procedure": {"type": "string"},
+    "expected_result": {"type": ["string", "null"]},
+    "observed_result": {"type": "string"},
+    "conclusion": {"enum": ["supports-pass", "supports-fail", "supports-na", "supports-blocked", "context-only"]},
+    "artifact_path": {"type": ["string", "null"]},
+    "sha256": {"type": ["string", "null"]},
+    "redacted": {"type": "boolean"},
+    "limitations": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

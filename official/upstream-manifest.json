@@ -1,0 +1,32 @@
+{
+  "source_repository": "appdefensealliance/ASA-WG",
+  "source_repository_url": "https://github.com/appdefensealliance/ASA-WG",
+  "tracking_policy": "latest published GitHub release; compare CASA component files by content hash; human review required before baseline acceptance",
+  "last_checked_utc": "2026-09-21T12:52:16.347692+00:00",
+  "latest_repository_release": "v2.2.0",
+  "latest_repository_release_published_at": "2026-06-15T17:26:13Z",
+  "latest_repository_release_url": "https://github.com/appdefensealliance/ASA-WG/releases/tag/v2.2.0",
+  "casa_component_version": "2.1.1",
+  "casa_component_date": "2026-06-03",
+  "control_count": 48,
+  "files": {
+    "CASA/CASA Specification.md": {
+      "git_blob_sha": "312c8b16c35a355164ca1c880ebbc9fa669caa09",
+      "sha256": "cb202594a6e24eb1b4cdd4c4616d38f0eb218d6f5a449072bed72d0398cb74e5",
+      "size": 46207,
+      "local_file": "CASA-Specification.md"
+    },
+    "CASA/CASA Test Guide.md": {
+      "git_blob_sha": "b8852f55e0645eeb3e33cd6345c4d50f8c7b0018",
+      "sha256": "5f3c82542212d226c52692016686279bab966671570c48995c996a83b682dad4",
+      "size": 97138,
+      "local_file": "CASA-Test-Guide.md"
+    },
+    "CASA/ADA Burp Audit Scan Configuration.json": {
+      "git_blob_sha": "be2a668c2a9f46aea0e2a3886fa7054ad82f9c42",
+      "sha256": "cfa0a35352a785def7ec04a40c4658af3b848ead8aa4416bd3c0736eefe0b87c",
+      "size": 55334,
+      "local_file": "ADA-Burp-Audit-Scan-Configuration.json"
+    }
+  }
+}

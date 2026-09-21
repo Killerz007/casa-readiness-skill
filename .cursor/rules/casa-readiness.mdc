@@ -1,0 +1,5 @@
+---
+description: CASA readiness security assessment methodology
+alwaysApply: false
+---
+When performing a CASA or Google OAuth security readiness review, read and follow the repository's `SKILL.md`. Do not infer Pass from a clean scanner, do not conduct unauthorized runtime testing, and do not claim certification.

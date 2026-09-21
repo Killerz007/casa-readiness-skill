@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+casa-assessment/
+.env
+.env.*
+!/.env.example

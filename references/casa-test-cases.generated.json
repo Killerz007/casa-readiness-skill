@@ -1,0 +1,825 @@
+{
+  "source": "App Defense Alliance CASA Test Guide",
+  "source_repository": "appdefensealliance/ASA-WG",
+  "source_release": "v2.2.0",
+  "casa_component_version": "2.1.1",
+  "generated_at": "2026-09-21T12:52:16.348227+00:00",
+  "controls": {
+    "1.1.1": {
+      "id": "1.1.1",
+      "title": "Authentication is resistant to brute force attacks",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.2.1",
+      "evidence": {
+        "AL1": "1. Provide a list of any external user authentication services.\n2. If a proprietary user authentication service is used by the application, provide a written description of the password policy\n3. If a proprietary user authentication service is used by the application, provide a written description of any anti-automation controls in place including multi-factor controls, rate limiting, CAPTCHAs, or soft account lockouts.\n4. If a proprietary user authentication service is used by the application, provide screenshots of the anti-automation controls in action.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review list of external authentication services against ADA approved services.\n2. Review provided evidence for adherence with the requirements",
+        "AL2": "1. Review list of external authentication services against ADA approved services.\n2. For proprietary authentication services, perform the testing guidance provided by WSTG-ATHN-03 to validate anti-automation controls."
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "1.1.2": {
+      "id": "1.1.2",
+      "title": "System generated initial passwords or activation codes shall be securely randomly generated and expire after a short period.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.3.1",
+      "evidence": {
+        "AL1": "1. Provide a list of any external user authentication services.\n2. If a proprietary user authentication service is used by the application, provide a written description of the initial password or activation code process.\n3. If a proprietary user authentication service is used by the application, provide screenshots of the initial password or activation code process in action.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review list of external authentication services against ADA approved services.\n2. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Review list of external authentication services against ADA approved services.\n2. For proprietary authentication services, evaluate the application's initial password or activation code generation."
+      },
+      "verification": {
+        "AL1": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, initial password or activation codes documentation shall include the following controls:\n   * 2.1. The initial password or codes shall be at least 6 characters long.\n   * 2.2. The initial password or codes shall contain letters and numbers.\n   * 2.3. The initial password or codes shall expire after a short period of time. (24 hours is the recommended period. However, 48 hours is the maximum period allowed.)\n   * 2.4. The initial password or codes shall not be permitted to become long term passwords.",
+        "AL2": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, initial password or activation codes shall be validated to include the following controls:\n   * 2.1. The initial password or codes shall be at least 6 characters long.\n   * 2.2. The initial password or codes shall contain letters and numbers.\n   * 2.3. The initial password or codes shall expire after a short period of time.(24 hours is the recommended period. However, 48 hours is the maximum period allowed.)\n   * 2.4. The initial password or codes shall not be permitted to become long term passwords.\n\n\n\n---"
+      }
+    },
+    "1.1.3": {
+      "id": "1.1.3",
+      "title": "Passwords shall be stored in a form that is resistant to offline attacks.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.4.1",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "1.2.1": {
+      "id": "1.2.1",
+      "title": "Default credentials shall not be present on publicly exposed interfaces.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.5.4",
+      "evidence": {
+        "AL1": "1. If any default accounts are present on publicly exposed interfaces, a confirmation that default credentials are not used shall be provided.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Perform the testing guidance provided by WSTG-ATHN-02 to validate default credentials are not present on publicly exposed interfaces."
+      },
+      "verification": {
+        "AL1": "1. Default credentials shall not be present on publicly exposed interfaces.",
+        "AL2": "1. Test results from WSTG-ATHN-02 shall not detect the use of default credentials on publicly exposed interfaces.\n\n---\n## 1.3 Out of band verifiers shall be random and not reused\n### Description\nAny verification codes or tokens sent through out-of-band methods (such as SMS or email) should have sufficient entropy along with a suitable expiration duration. Once a verifier has been used or has expired, it should be invalidated and a new one should be generated for each subsequent verification attempt.\n### Rationale\nBy ensuring that out of band verifiers are securely generated and managed, the risk of an adversary intercepting and using these verifiers is significantly reduced.\n### Audit\n\n\n---"
+      }
+    },
+    "1.3.1": {
+      "id": "1.3.1",
+      "title": "Out of band verifier shall expire in a reasonable timeframe.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.7.2",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "1.3.2": {
+      "id": "1.3.2",
+      "title": "Out of band verifier shall only be used once.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.7.3",
+      "evidence": {
+        "AL1": "1. Provide a list of any external user authentication services.\n2. If a proprietary user authentication service is used by the application, provide a written description of the out of band expiration process.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review list of external authentication services against ADA approved services.\n2. Review provided evidence for adherence with the requirements",
+        "AL2": "1. Review list of external authentication services against ADA approved services.\n2. For proprietary authentication services, evaluate the application out of band verifier process."
+      },
+      "verification": {
+        "AL1": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, out of band verifier shall only be used once.",
+        "AL2": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, evaluation shall verify that the application does not allow the out of band verifier to be used more than once.\n\n\n---"
+      }
+    },
+    "1.3.3": {
+      "id": "1.3.3",
+      "title": "Out of band verifier shall be securely random",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.7.6",
+      "evidence": {
+        "AL1": "1. Provide a list of any external user authentication services.\n2. If a proprietary user authentication service is used by the application, provide a written description of the algorithm used to generate initial authentication codes.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review list of external authentication services against ADA approved services.\n2. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Review list of external authentication services against ADA approved services.\n2. From the application, generate at least three initial authentication codes."
+      },
+      "verification": {
+        "AL1": "1. An ADA-approved external user authentication service may be used.\n2. Initial authentication code generation shall be securely random (generation of random numbers shall be in a way that is impossible for an attacker to predict or manipulate).",
+        "AL2": "1. An ADA-approved external user authentication service may be used.\n2. Initial authentication code shall be observed to be random.\n\n\n---"
+      }
+    },
+    "1.3.4": {
+      "id": "1.3.4",
+      "title": "Out of band verifier shall be resistant to brute force attacks",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 2.7.6",
+      "evidence": {
+        "AL1": "1. Provide a list of any external user authentication services.\n2. If a proprietary user authentication service is used by the application, provide a written description of the algorithm used to generate initial authentication codes and also of any rate-limiting applied during the application\u2019s initial authentication code validation process.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review list of external authentication services against ADA approved services.\n2. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Review list of external authentication services against ADA approved services.\n2. Validate application\u2019s adherence with the requirements."
+      },
+      "verification": {
+        "AL1": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, authentication codes shall contain at least 20 bits of entropy (typically a six digital random number is sufficient).\n3. If a non-ADA approved service is used and the authentication secret has less than 64 bits of entropy, the application shall implement a rate-limiting mechanism.",
+        "AL2": "1. An ADA-approved external user authentication service may be used.\n2. If a non-ADA approved service is used, evaluation shall verify authentication codes contain at least 20 bits of entropy (typically a six digital random number is sufficient).\n3. If a non-ADA approved service is used and the authentication secret has less than 64 bits of entropy, evaluation shall verify the application implements a rate-limiting mechanism.\n\n\n---\n# 2 Session Management\n## 2.1 URLs shall not expose authentication material\n### Description\nWeb applications must never expose authentication material, such as passwords or session cookies, within URL parameters. Authentication material should be transmitted securely, such as within HTTP headers or cookies with appropriate security flags.\n### Rationale\nExposing authentication material such as session tokens in URLs significantly increases the risk of data loss and session hijacking. Attackers can easily intercept this data through browser history, network sniffing, or by tricking users into visiting malicious links. This vulnerability undermines data protection, the security of user sessions and makes the application susceptible to unauthorized access\n### Audit\n\n\n---"
+      }
+    },
+    "2.1.1": {
+      "id": "2.1.1",
+      "title": "The application shall not reveal passwords or session tokens in URL parameters. In cases where the application provides an API, the application shall prevent (or give developers an option to prevent) exposing sensitive information like API keys or session tokens within the URL query strings.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.1.1",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning must be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform exposed variable testing procedure defined in WSTG-SESS-04."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 4195072 Password submitted using GET method\n   - 4195328 Password returned in URL query string\n   - 5244672 Session token in URL\n\n2. Either sensitive information shall not be sent via the URL or an option shall exist to send sensitive data within the HTTP body or via Header values.",
+        "AL2": "1. Application requests shall not send passwords or session tokens as a URL parameter and the application API shall not require sensitive data to be sent via the URL.\n\n\n---\n## 2.2 Implement Session Invalidation on Logout, User Request, and Password Change\n### Description\nThe application must invalidate session tokens upon logout, expiration, and shall provide the option (or acts by default) to terminate other active sessions after a successful password change (including reset).\n### Rationale\nThese features protect against unauthorized access.  Logouts and expirations prevent lingering sessions, while password-change termination deters attackers who might know an old password.  Session visibility and control let users proactively manage their account, ensuring that only authorized devices are actively associated with their profile.\n### Audit\n\n\n---"
+      }
+    },
+    "2.2.1": {
+      "id": "2.2.1",
+      "title": "Users shall have the ability to logout of the application. Logout or session expiration shall invalidate all stateful session tokens, including refresh tokens.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.3.1",
+      "evidence": {
+        "AL1": "1. Provide code snippets that show how the logout and expiration functionality is implemented and that demonstrate user session tokens are invalidated when a user logs out or the session is expired.\n\nor;\n\n2. Provide documentation that describes how session tokens are handled on user logout and expiration.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate logout and session expiration functions meet the specified requirements.",
+        "AL2": "1. Perform session testing procedures defined in WSTG-SESS-06 and WSTG-SESS-07."
+      },
+      "verification": {
+        "AL1": "1. Server-side session invalidation shall occur upon user logout and session expiration.",
+        "AL2": "1. Test shall confirm that the application performs server-side session invalidation on user logout and session expiration.\n\n\n---"
+      }
+    },
+    "2.2.2": {
+      "id": "2.2.2",
+      "title": "The application shall provide the option (or acts by default) to terminate all other active sessions, including stateful refresh tokens, after a successful password change (including change via password reset/recovery), and that this is effective across the application, federated login (if present), and any relying parties.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.3.3",
+      "evidence": {
+        "AL1": "1. Provide code snippets that show how session invalidation is handled for a user after a successful password change.\n\nor;\n\n2. Provide documentation that describes how session invalidation is handled for a user after a successful password change.",
+        "AL2": "N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate session termination on password change meets the specified requirements.",
+        "AL2": "1. Perform session invalidation testing procedures defined in WSTG-SESS-07."
+      },
+      "verification": {
+        "AL1": "1. User active sessions shall be terminated or an option is given to inactive active sessions on user password change.",
+        "AL2": "1. Test shall confirm that application performs server-side session invalidation of user active sessions or option shall be given to inactive active sessions on user password change.\n\n\n---"
+      }
+    },
+    "2.2.3": {
+      "id": "2.2.3",
+      "title": "Non-revocable stateless authentication tokens must expire within 24 hours of being issued",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.3.4",
+      "evidence": {
+        "AL1": "1. Provide code snippets, screenshot, or documentation that shows the time period for which stateless tokens are valid (if utilized).",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate session expiration meets the specified requirements.",
+        "AL2": "1. Obtain stateless authentication token from target application."
+      },
+      "verification": {
+        "AL1": "1. Non-revocable stateless authentication tokens shall have an expiration time within 24 hours of being issued.",
+        "AL2": "1. Non-revocable stateless authentication tokens shall have an expiration time within 24 hours of being issued.\n\n\n---\n## 2.3 Implement and secure application session tokens\n### Description\nWhen using cookie-based session tokens, the application must enforce the 'Secure' attribute (ensuring transmission only over HTTPS) and the 'HttpOnly' attribute (preventing access by client-side JavaScript).  The application prioritizes session tokens over static API keys, except where legacy systems necessitate static secrets.\n### Rationale\nSecure' and 'HttpOnly' mitigate risks of token interception and Cross-Site Scripting (XSS) attacks, enhancing session security. Session tokens, being temporary and user-specific, offer better control and auditing compared to long-lived API secrets, making them the preferred approach for modern applications.\n### Audit\n\n\n---"
+      }
+    },
+    "2.3.1": {
+      "id": "2.3.1",
+      "title": "Cookie-based session tokens shall have the 'Secure' attribute set.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.4.1",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform cookie attribute testing procedure defined in WSTG-SESS-02."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerability:\n   - 5243392 TLS cookie without secure flag set",
+        "AL2": "1. Test shall confirm that application session cookies shall utilize the \"Secure\" attribute.\n\n\n---"
+      }
+    },
+    "2.3.2": {
+      "id": "2.3.2",
+      "title": "Cookie-based session tokens shall have the 'HttpOnly' attribute set.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.4.2",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform cookie attribute testing procedure defined in WSTG-SESS-02."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerability:\n   - 500600 Cookie without HttpOnly flag set",
+        "AL2": "1. Test shall confirm that application session cookies utilize the \"HttpOnly\" attribute.\n\n\n---"
+      }
+    },
+    "2.3.3": {
+      "id": "2.3.3",
+      "title": "The application shall use session tokens rather than static API secrets and keys, except with legacy implementations.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.5.2",
+      "evidence": {
+        "AL1": "1. Provide code snippets of session token creation; showing dynamically generated tokens\n\nor;\n\n2. Provide documentation that describes how session tokens are dynamically generated",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate session tokens meets the specified requirements",
+        "AL2": "1. Perform session token testing procedures defined in WSTG-SESS-03"
+      },
+      "verification": {
+        "AL1": "1. Session tokens shall be dynamically generated after user authentication.",
+        "AL2": "1. Test shall confirm that application session tokens are dynamically generated and change after user authentication.\n\n\n---"
+      }
+    },
+    "2.3.4": {
+      "id": "2.3.4",
+      "title": "Stateless session tokens shall use digital signatures, encryption, and other countermeasures to protect against tampering, enveloping, replay, null cipher, and key substitution attacks.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.5.3",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform testing procedures to validate stateless session tokens are securely generated and validated.  Where stateless tokens utilize JSON Web Tokens (JWT), perform testing procedures defined in WSTG-SESS-10."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 2099456 JWT signature not verified\n   - 2099457 JWT none algorithm supported",
+        "AL2": "1. Test shall confirm that application stateless session token digital signatures are validated using server-side private key.\n\n\n---\n## 2.4 Protect sensitive account modifications\n### Description\nApplications must enforce a complete, valid login session or require re-authentication/secondary verification prior to any sensitive actions, such as sensitive data transactions or changes to account settings.\n### Rationale\nThis requirement prevents unauthorized access to sensitive parts of an application.  Even if an attacker partially compromises a session, re-authentication or secondary checks create an extra barrier. It helps mitigate session hijacking attempts and safeguards user data, promoting overall account security.\n### Audit\n\n\n---"
+      }
+    },
+    "2.4.1": {
+      "id": "2.4.1",
+      "title": "Verify the application ensures a full, valid login session or requires re-authentication or secondary verification before allowing any sensitive transactions or account modifications.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 3.7.1",
+      "evidence": {
+        "AL1": "1. Provide code snippets that shows either the user has a full login session or an account verification process is conducted before allowing user account modifications or sensitive data transaction\n\nor;\n\n2. Provide documentation that describes either the user has a full login session or an account verification process is conducted before allowing user account modifications or sensitive data transaction",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate user authentication meets the specified requirements",
+        "AL2": "1. Perform state and authentication testing procedures defined in WSTG-SESS-01"
+      },
+      "verification": {
+        "AL1": "1. Either the user shall have a full login session or an account verification process shall be conducted before allowing user account modifications or transaction against sensitive data.",
+        "AL2": "1. Test shall confirm that a user is required to have a full login session or an account verification process is conducted before allowing user account modifications or transaction against sensitive data.\n\n\n---\n# 3 Access Control\n## 3.1 Implement access control mechanisms to protect confidential data and APIs\n### Description\nApplications shall enforce robust access controls at a trusted service layer, ensuring data integrity and applying the principle of least privilege. This includes protecting user/data attributes, limiting user manipulation, failing securely during exceptions, defending against Insecure Direct Object References (IDOR), and using strong anti-CSRF and multi-factor authentication (MFA) for administrative functions.\n### Rationale\nEnforcing least privilege access controls on a trusted service layer helps prevent unauthorized access and manipulation of sensitive data.\n### Audit\n\n\n---"
+      }
+    },
+    "3.1.1": {
+      "id": "3.1.1",
+      "title": "The application shall enforce least privilege access control rules on a trusted service layer.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.1.1",
+      "evidence": {
+        "AL1": "1. Explain / Provide documentation how user authentication and authorization are implemented, what roles and permissions are defined, and how access control rules are enforced when users interact with the application.\n2. Explain / Provide documentation that the principle of least privilege exists - users should only be able to access functions, data files, URLs, controllers, services, and other resources, for which they possess specific authorization.\nNote: A single written description shall be used for access control test cases 3.1.1 - 3.1.3.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements",
+        "AL2": "1. Perform authorization bypass testing as defined in WSTG-ATHZ-02."
+      },
+      "verification": {
+        "AL1": "1. Application shall enforce access control rules on a trusted service layer.",
+        "AL2": "1. Access control decisions shall be uniformly enforced on a trusted service layer.\n\n\n---"
+      }
+    },
+    "3.1.2": {
+      "id": "3.1.2",
+      "title": "All user and data attributes and policy information used by access controls shall not be able to be manipulated by end users unless specifically authorized.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.1.2",
+      "evidence": {
+        "AL1": "1. Explain / Provide documentation how user authentication and authorization are implemented, what roles and permissions are defined, and how access control rules are enforced when users interact with the application.\n2. Explain / Provide documentation that the principle of least privilege exists - users should only be able to access functions, data files, URLs, controllers, services, and other resources, for which they possess specific authorization.\nNote: A single written description shall be used for access control test cases 3.1.1 - 3.1.3.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Perform authorization bypass testing as defined in WSTG-ATHZ-02."
+      },
+      "verification": {
+        "AL1": "1. User and data attributes and policy information used by access controls shall not be manipulated by the end user.",
+        "AL2": "1. Test shall confirm that access controls are not be able to be manipulated by the end user unless specifically authorized.\n\n\n---"
+      }
+    },
+    "3.1.3": {
+      "id": "3.1.3",
+      "title": "Access controls shall fail securely including when an exception occurs.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.1.5",
+      "evidence": {
+        "AL1": "1. Explain / Provide documentation how user authentication and authorization are implemented, what roles and permissions are defined, and how access control rules are enforced when users interact with the application.\n2. Explain / Provide documentation that the principle of least privilege exists - users should only be able to access functions, data files, URLs, controllers, services, and other resources, for which they possess specific authorization.\nNote: A single written description shall be used for access control test cases 3.1.1 - 3.1.3.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Perform testing for improper access control error handling as defined in WSTG-ERRH-01."
+      },
+      "verification": {
+        "AL1": "1. Access controls shall fail securely.",
+        "AL2": "1. Test shall confirm that the application's access controls securely failed closed including when an exception occurs.\n\n\n---"
+      }
+    },
+    "3.1.4": {
+      "id": "3.1.4",
+      "title": "Sensitive resources shall be protected against Insecure Direct Object Reference (IDOR) attacks targeting creation, reading, updating and deletion of records, such as creating or updating someone else's record, viewing everyone's records, or deleting all records.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.2.1",
+      "evidence": {
+        "AL1": "1. Provide a list of APIs in which portions of the API/URL or parameters may be passed from the user into the application.\n2. Provide a written description how the APIs are protected from Insecure Direct Object Reference attacks.",
+        "AL2": "1. Provide a list of APIs in which portions of the API/URL or parameters may be passed from the user into the application."
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Perform testing for Insecure Direction Object References as defined in WSTG-ATHZ-04."
+      },
+      "verification": {
+        "AL1": "1. A process shall be in place to mitigate Insecure Direct Object Reference attacks.",
+        "AL2": "1. Any APIs that accept user facing parameters (or URIs) shall not exhibit signs of Insecure Direct Object References.\n\n\n---"
+      }
+    },
+    "3.1.5": {
+      "id": "3.1.5",
+      "title": "The application or framework shall enforce a strong anti-CSRF mechanism to protect authenticated functionality, and effective anti-automation or anti-CSRF protects unauthenticated functionality.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.2.2",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform testing as defined in WSTG-SESS-05 (Testing for Cross Site Request Forgery)."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 2098944 Cross-site request forgery",
+        "AL2": "1. Application or framework shall enforce effective controls to mitigate Cross Site Request Forgery (CSRF).\n\n\n---"
+      }
+    },
+    "3.1.6": {
+      "id": "3.1.6",
+      "title": "Directory browsing shall be disabled unless deliberately desired.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.3.2",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "3.2.1": {
+      "id": "3.2.1",
+      "title": "Application shall implement only secure and recommended OAuth 2.0 flows, such as the Authorization Code Flow or the Authorization Code Flow with PKCE, while avoiding the use of deprecated flows like the Implicit Flow or the Resource Owner Password Credentials Flow.",
+      "external_reference": "ASVS Version 4.0.3 Requirement:",
+      "evidence": {
+        "AL1": "1. If the application uses an OAuth 2.0 integration, provide a written description along with relevant evidence (screenshots, source code, or other documentation) detailing which OAuth 2.0 flow is used.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to verify which OAuth 2.0 flows are used by the application.",
+        "AL2": "1. Perform the Testing for Deprecated Grant Types steps defined in WSTG-ATHZ-05 (Testing for OAuth Weaknesses)."
+      },
+      "verification": {
+        "AL1": "1. Documentation shall not indicate the use of a deprecated OAuth flow, including the Implicit Flow or the Resource Owner Password Credentials Flow.",
+        "AL2": "1. Test shall confirm that the application is not using a deprecated OAuth flow, including the Implicit Flow or the Resource Owner Password Credentials Flow.\n\n\n\n---"
+      }
+    },
+    "3.2.2": {
+      "id": "3.2.2",
+      "title": "Application shall securely validate the redirect_uri and state parameters during the OAuth 2.0 authorization process to prevent open redirect and CSRF vulnerabilities.",
+      "external_reference": "ASVS Version 4.0.3 Requirement:",
+      "evidence": {
+        "AL1": "1. If the application uses an OAuth 2.0 integration, provide a written description along with relevant evidence (screenshots, source code, or other documentation) detailing how the application uses the state and redirect_uri parameters to prevent common OAuth vulnerabilities.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence to verify the application's usage of the redirect_uri and state parameters.",
+        "AL2": "1. Perform the Testing for OAuth Client Weaknesses steps defined in WSTG-ATHZ-05 (Testing for OAuth Weaknesses)."
+      },
+      "verification": {
+        "AL1": "1. Application shall securely utilize state and redirect_uri validation to prevent against open redirect and CSRF vulnerabilities.",
+        "AL2": "1. Test shall confirm that the application is not vulnerable to open redirects or CSRF vulnerabilities in the OAuth authorization process.\n\n\n\n---\n## 3.3 Application exposed administrative interfaces shall use appropriate multi-factor authentication.\n### Description\nMulti-factor authentication shall be implemented for all application exposed administrative interfaces. These interfaces must be limited to application layer functionality and shall not expose the underlying cloud infrastructure. This requirement applies to both custom admin interfaces and open source admin portals, such as the WordPress Admin dashboard.\n### Rationale\nInfrastructure administrative interfaces shall not be exposed through an internet facing interface. However, there are many cases where application layer administrative tasks may need to be exposed to the internet. It is critical that these interfaces be limited in functionality and always implement multi-factor authentication to prevent attackers from compromising administrative accounts.\n\n### Audit\n\n\n---"
+      }
+    },
+    "3.3.1": {
+      "id": "3.3.1",
+      "title": "Application administrative interfaces shall use appropriate multi-factor authentication to prevent unauthorized use.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 4.3.1",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "4.1.1": {
+      "id": "4.1.1",
+      "title": "Application shall enforce the use of TLS for all connections and default to TLS 1.2+. In cases where support for legacy clients is necessary, TLS 1.0 and 1.1 may be supported if mitigations are implemented to minimize the risk of downgrade attacks and known TLS exploits. Regardless of the TLS version in use, the application shall default to secure cipher suites and reject those with known vulnerabilities.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 9.1.2",
+      "evidence": {
+        "AL1": "1. Execute a Qualys SSL Labs scan for the application and provide a PDF export of the test results demonstrating that application meets the aforementioned TLS requirements. In most cases, this should result in a B or higher score.",
+        "AL2": "1. N/A (to be collected by lab)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review PDF export from Qualys SSL Labs scan.",
+        "AL2": "1. Perform the testing guidance defined in WSTG-CRYP-01 to inspect TLS configuration."
+      },
+      "verification": {
+        "AL1": "1. Application shall meet the TLS configuration defined in NIST SP.800-52r2.",
+        "AL2": "1. Test shall confirm that the application meets the TLS configuration defined in NIST SP.800-52r2.\n\n_Additional Context_\n\nThe following are out of scope for TLS encryption:\n\n* Connections that are not used for security sensitive purposes (e.g. anonymized analytics)\n* Connections to local backend web servers\n* Unencrypted connections that have a valid justification provided\n\n\n---"
+      }
+    },
+    "4.1.2": {
+      "id": "4.1.2",
+      "title": "Connections to and from the server shall use trusted TLS certificates. Where internally generated or self-signed certificates are used, the server must be configured to only trust specific internal CAs and specific self-signed certificates. All others should be rejected.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 9.2.1",
+      "evidence": {
+        "AL1": "1. Execute a Qualys SSL Labs scan for the application and provide a PDF export of the test results demonstrating that application meets the aforementioned TLS requirements. In most cases, this should result in a B or higher score.",
+        "AL2": "1. N/A (to be collected by lab)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review PDF export from Qualys SSL Labs scan.",
+        "AL2": "1. Perform the testing guidance provided in the Digital Certificates section of WSTG-CRYP-01."
+      },
+      "verification": {
+        "AL1": "1. Application shall meet the TLS certification requirements defined in NIST SP.800-52r2.",
+        "AL2": "1. Test shall confirm that the application meets the TLS certificate requirements defined in NIST SP.800-52r2.\n\n\n---"
+      }
+    },
+    "4.1.3": {
+      "id": "4.1.3",
+      "title": "No instances of weak cryptography which meaningfully impact the confidentiality or integrity of data.",
+      "external_reference": "ASVS Version 4.0.3 Requirement:",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "1. Review evidence to validate cryptographic operations.",
+        "AL2": "1. Review evidence to validate cryptographic operations. Perform manual testing as appropriate using guidance defined in WSTG-CRYP-04 to validate cryptographic operations."
+      },
+      "verification": {
+        "AL1": "1. Developer evidence demonstrates that strong cryptography shall be implemented according to industry best practices.",
+        "AL2": "1. Output of the analysis shows that strong cryptography shall be implemented according to industry best practices.\n\n\nAdditional Context\n\nRefer to SP.800-57p1r5 and SP.800-131Ar2 with 112 bit of security as baseline:\n\nHashing: SHA-224 or better\nDigital signatures & public key encryption: (Key length no less than 2048 bits for factoring or 224 for ECC)\nCustom implementations: If the provider has a custom implementation of a library (open-source library) test is in scope, home-grown implementation requires further developer assurance.\n\n\n\n---"
+      }
+    },
+    "4.1.4": {
+      "id": "4.1.4",
+      "title": "All cryptographic modules shall fail securely, and errors are handled in a way that does not enable Padding Oracle attacks.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 6.2.1",
+      "evidence": {
+        "AL1": "1. Describe how your application handles cryptographic failures for the previously identified crypto operations. Provide detailed evidence such as source code, screenshots, or other relevant sources that showcase how the application handles cryptographic failures.",
+        "AL2": "1. N/A (to be collected by lab)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review the provided evidence to identify potential Padding Oracle scenarios as described in WSTG-CRYP-02.",
+        "AL2": "1. Perform the testing guidance provided by WSTG-CRYP-02 to identify potential Padding Oracles in the application."
+      },
+      "verification": {
+        "AL1": "1. Errors or other output resulting from cryptographic failures shall not disclose sensitive information about the operation\u2019s state or reveal any details that could be exploited as a side channel. User-facing error messages shall be vague and consistent regardless of the failure type.",
+        "AL2": "1. Test shall confirm that errors or other output resulting from cryptographic failures do not disclose sensitive information about the operation's state or reveal any details that could be exploited as a side channel. User-facing error messages shall be vague and consistent regardless of the failure type.\n\n\n\n---\n# 5 Data Validation and Sanitization\n## 5.1 Implement validation & input sanitation\n### Description\nWeb applications must implement robust input validation and output encoding to defend against a wide range of injection attacks. This includes protecting against HTTP Parameter Pollution, XSS (reflected, stored, and DOM-based), SQL injection, OS command injection, file inclusion vulnerabilities, template injection, SSRF, XPath/XML injection, and unsafe use of dynamic code execution features (like eval()).\n### Rationale\nRobust input validation and output encoding is essential for web applications to effectively defend against multiple injection attack types. Injection attacks pose a significant risk for web applications due to their simplicity and ease of automation, enabling potential attackers to readily target vulnerable sites. By implementing secure input validation, web applications can significantly reduce the risk of attackers exploiting injection vulnerabilities to gain unauthorized access, manipulate data, or compromise systems.\n### Audit\n\n\n---"
+      }
+    },
+    "5.1.1": {
+      "id": "5.1.1",
+      "title": "Protect against HTTP parameter pollution.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.1.1",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform HTTP parameter pollution testing procedure defined in WSTG-INPV-04."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 5248000: Client-side HTTP parameter pollution (reflected)\n   - 5248001: Client-side HTTP parameter pollution (stored)",
+        "AL2": "1. Test shall confirm that application is not vulnerable to HTTP parameter pollution as defined in WSTG-INPV-04.\n\n\n---"
+      }
+    },
+    "5.1.2": {
+      "id": "5.1.2",
+      "title": "URL redirects and forwards are limited to allowlisted URLs or a warning is displayed when redirecting to untrusted content.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.1.5",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform client-side URL redirect testing procedure defined in WSTG-CLNT-04."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 5243136: Open redirection (reflected)\n   - 5243137: Open redirection (stored)\n   - 5243152: Open redirection (DOM-based)\n   - 5243153: Open redirection (reflected DOM-based)\n   - 5243154: Open redirection (stored DOM-based)",
+        "AL2": "1. Test shall confirm that application restricts redirects to allowlisted URLs or displays a warning when redirecting to untrusted content.\n\n\n---"
+      }
+    },
+    "5.1.3": {
+      "id": "5.1.3",
+      "title": "Avoid the use of eval() or other dynamic code execution features. When there is no alternative, any user input is sanitized and sandboxed before being executed.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.2.4",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform code injection testing procedure defined in WSTG-INPV-11."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 1051904: Server-side JavaScript code injection\n   - 1052160: Perl code injection\n   - 1052416: Ruby code injection\n   - 1052432: Python code injection\n   - 1051648: PHP Code Injection\n   - 1052672: Unidentified code injection\n   - 1052448: Expression Language Injection",
+        "AL2": "1. Test shall confirm that application does not allow arbitrary code execution from user input. In scenarios where user-supplied code execution is expected, ensure all user input is sanitized and sandboxed prior to execution.\n\n\n---"
+      }
+    },
+    "5.1.4": {
+      "id": "5.1.4",
+      "title": "Protect against template injection attacks by ensuring that any user input being included is sanitized or sandboxed.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.2.5",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform template injection testing procedure defined in WSTG-INPV-18."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 1052800: Server-side template injection",
+        "AL2": "1. Test shall confirm that application is not susceptible to template injection from untrusted input.\n\n\n---"
+      }
+    },
+    "5.1.5": {
+      "id": "5.1.5",
+      "title": "Prevent Server-Side Request Forgery (SSRF)",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.2.6",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform Server-Side Request Forgery (SSRF) testing procedure defined in WSTG-INPV-19."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 1051136: Out-of-band resource load (HTTP)\n   - 3146240: External service interaction (DNS)\n   - 3146256: External service interaction (HTTP)",
+        "AL2": "1. Test shall confirm that the application does not initiate arbitrary HTTP or DNS requests to either internal or external resources based on user-supplied input, unless it is a necessary part of the application functionality. In such cases, ensure application implements robust input validation and uses allowlists to restrict requests to trusted and necessary domains or IP addresses.\n\n\n---"
+      }
+    },
+    "5.1.6": {
+      "id": "5.1.6",
+      "title": "Protect against XPath or XML injection attacks",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.3.10",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "Perform the XML injection testing procedure defined in WSTG-INPV-07 and the XPath testing procedure defined in WSTG-INPV-09."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 1050368: XML injection\n   - 1050112: XPath injection\n   - 1049600: XML external entity injection\n   - 2098016 Client-side XPath injection (DOM-based)\n   - 2098017 Client-side XPath injection (reflected DOM-based)\n   - 2098018 Client-side XPath injection (stored DOM-based)",
+        "AL2": "1. Test shall confirm that the application safely parses XML input and is not susceptible to common XML parsing vulnerabilities including XML injection, XML external entities (XXE), or XPath injection.\n\n\n---"
+      }
+    },
+    "5.1.7": {
+      "id": "5.1.7",
+      "title": "Context-aware output escaping or sanitization protects against reflected, stored, and DOM based XSS.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.3.3",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "Perform the reflected Cross-Site Scripting (XSS) testing procedure defined in WSTG-INPV-01 and the stored Cross-Site Scripting (XSS) testing procedure defined in WSTG-INPV-02."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify any of the following vulnerabilities:\n   - 2097408: Cross-site scripting (stored)\n   - 2097920: Cross-site scripting (reflected)\n   - 2097936: Cross-site scripting (DOM-based)\n   - 2097937: Cross-site scripting (reflected DOM-based)\n   - 2097938: Cross-site scripting (stored DOM-based)",
+        "AL2": "1. Test shall confirm that application shall is not susceptible to stored, reflected, or DOM-based Cross-site Scripting (XSS) vulnerabilities.\n\n\n---"
+      }
+    },
+    "5.1.8": {
+      "id": "5.1.8",
+      "title": "Protect against database injection attacks",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.3.4",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "Perform the database injection testing procedure defined in WSTG-INPV-05."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify any of the following vulnerabilities:\n   - 1049088: SQL Injection\n   - 1049104: SQL Injection (Second Order)",
+        "AL2": "1. Verification shall confirm that application is not vulnerable to SQL injection, including in-band, blind (inferential), and out-of-band attacks.\n\n\n---"
+      }
+    },
+    "5.1.9": {
+      "id": "5.1.9",
+      "title": "Protect against OS command injections",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.3.8",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform the OS command injection testing procedure defined in WSTG-INPV-12."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify any of the following vulnerabilities:\n   - 1048832: OS Command Injection",
+        "AL2": "1. Verification shall confirm that testing evidence does not indicate the application is vulnerable to OS command injection vulnerabilities from parsing untrusted user input.\n\n\n---"
+      }
+    },
+    "5.1.10": {
+      "id": "5.1.10",
+      "title": "Protect against local file inclusion or remote file inclusion attacks",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 5.3.9",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Perform the testing procedures defined in the Local File Inclusion (LFI) and Remote File Inclusion (RFI) subsections of WSTG-INPV-11."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify any of the following vulnerabilities:\n   - 1049344: File path traversal\n   - 1051392: File path manipulation",
+        "AL2": "1. Verification shall confirm that testing evidence does not indicate application is vulnerable to Local File Inclusion (LFI), Remote File Inclusion (RFI), or related directory traversal attacks.\n\n\n---\n## 5.2 Securely handle untrusted files\n### Description\nWeb applications must safely process and manage files that originate from untrusted or unknown sources. This includes restricting uploads to expected file types and preventing direct execution of uploaded content containing HTML, JavaScript, or dynamic server-side code.\n### Rationale\nFiles from untrusted sources may contain malicious code which could allow compromise of the application. If these files are executed directly, they can compromise the security of the web application, leading to unauthorized access, data breaches, or other harmful actions.\n### Audit\n\n\n---"
+      }
+    },
+    "5.2.1": {
+      "id": "5.2.1",
+      "title": "Protect against malicious file uploads by limiting uploads to expected file types and preventing direct execution of uploaded content.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 12.2.1",
+      "evidence": {
+        "AL1": "1. Identify any situations in which the application accepts user file uploads. Describe how the application securely validates file type and prevents file execution. Provide detailed evidence such as source code, screenshots, or other relevant sources.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review the provided evidence to validate that application appropriately enforces file upload restrictions.",
+        "AL2": "1. Perform the testing procedures defined in WSTG-BUSL-08 and WSTG-BUSL-09."
+      },
+      "verification": {
+        "AL1": "1. Application shall enforce appropriate file type restrictions on file uploads.",
+        "AL2": "1. Testing shall confirm that the application restricts file uploads to expected file types and that application prevents direct execution of any uploaded content including HTML, JavaScript, and server-side code. In cases where the application intends for the user to upload executable file types, the application shall appropriately sanitize or sandbox executable files.\n\n\n---\n# 6 Configuration\n## 6.1 Keep all components up to date\n### Description\nDevelopers must verify that the libraries included in their application do not have any known exploitable vulnerabilities.\n### Rationale\nAttackers can perform automated scans to identify vulnerable applications based on published vulnerabilities.\n### Audit\n\n\n---"
+      }
+    },
+    "6.1.1": {
+      "id": "6.1.1",
+      "title": "The application only uses software components without known exploitable vulnerabilities.",
+      "external_reference": "ASVS Version 4.0.3 Requirement:",
+      "evidence": {
+        "AL1": "1. Provide output of a dependency scan of application and 3P libraries using OWASP dependency check or other ADA approved scanning tools.",
+        "AL2": "1. Developer to provide lab access to source code repository or application software manifest."
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Perform dependency scan of source code repository or scan of developer provided manifest."
+      },
+      "verification": {
+        "AL1": "1. The application shall not use any 3P libraries at a version vulnerable to a CVE with a severity >= CVSS 7.0.\n\nAn application that uses a 3P library at a version vulnerable to a CVE with CVSS >= 7.0 can pass this test if the developer provides additional justification that:\n* The application does not invoke the vulnerable 3P library code, or\n* The 3P library has not yet made an update available. This is acceptable only if the 3P library has a regular patch process.",
+        "AL2": "1. Scan shall confirm that the application does not use any 3P libraries at a version vulnerable to a CVE with a severity >= CVSS 7.0.\n\nAn application that uses a 3P library at a version vulnerable to a CVE with CVSS >= 7.0 can pass this test if the developer provides additional justification that:\n* The application does not invoke the vulnerable 3P library code or\n* The 3P library has not yet made an update available. This is acceptable only if the 3P library has a regular patch process.\n\n\n\n\n---\n## 6.2 Disable debug modes in production environments\n### Description\nApplications must strictly disable all debug modes before deployment into production environments.\n### Rationale\nDebug modes often expose sensitive information like stack traces, code internals, and environment variables. This information can aid attackers in understanding the application's structure and identifying vulnerabilities, significantly increasing the risk of targeted attacks and exploitation. Disabling debug modes removes this unnecessary risk in production.\n### Audit\n\n\n---"
+      }
+    },
+    "6.2.1": {
+      "id": "6.2.1",
+      "title": "Disable debug modes in production environments",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 14.3.2",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Verify that web or application server and application framework debug modes are disabled in production to eliminate debug features, developer consoles, and unintended security disclosures."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 1050624: ASP.NET debugging enabled",
+        "AL2": "1. Verification shall confirm that no debug modes are enabled in production environments.\n\n\n---\n## 6.3 The origin header shall not be used for authentication of access control decisions\n### Description\nThe application must never rely solely on the Origin HTTP header for authentication or access control decisions.\n### Rationale\nThe Origin header can be easily manipulated by attackers, making it an unreliable indicator of a request's true source. This could lead to unauthorized access if an application mistakenly trusts requests based on a forged  Origin header. Security mechanisms must use more robust and tamper-proof methods for authentication and authorization.\n### Audit\n\n\n---"
+      }
+    },
+    "6.3.1": {
+      "id": "6.3.1",
+      "title": "The origin header shall not be used for authentication of access control decisions",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 14.5.2",
+      "evidence": {
+        "AL1": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning may be performed by the developer or by an authorized testing lab.",
+        "AL2": "1. Testing results from a scan completed using the [ADA's Dynamic Application Security Testing Guidance](#dynamic-application-security-testing-dast-guidance). Scanning shall be performed by an authorized testing lab."
+      },
+      "test_procedure": {
+        "AL1": "1. Execute authenticated Burp Suite scan on the target application using the ADA scan configuration.",
+        "AL2": "1. Verify that the supplied Origin header is not used for authentication or access control decisions, as the Origin header can easily be changed by an attacker."
+      },
+      "verification": {
+        "AL1": "1. Burp Suite scan shall not identify the following vulnerabilities:\n   - 2098689: Cross-origin resource sharing: arbitrary origin trusted",
+        "AL2": "1. Verification shall confirm that origin header is not used for authentication of access control decisions.\n\n\n---\n## 6.4 Protect application from subdomain takeover\n### Description\nThe application must implement safeguards to prevent subdomain takeover vulnerabilities. This includes proactive identification and removal of dangling DNS records (e.g., CNAME records pointing to decommissioned services) and regular monitoring of third-party services integrated with the application's domains.\n### Rationale\nDangling DNS records and vulnerable third-party services can allow attackers to take control of subdomains. This could enable them to host malicious content on the application's domain, harming reputation and potentially leading to phishing attacks or the compromise of user data.\n### Audit\n\n\n---"
+      }
+    },
+    "6.4.1": {
+      "id": "6.4.1",
+      "title": "The application shall not be susceptible to subdomain takeovers.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 10.3.3",
+      "evidence": {
+        "AL1": "1. Provide evidence of DNS configuration for the target domain and subdomains, confirming that either all subdomains are explicitly defined and point to IP addresses or other domains controlled by your organization; or where the record points to a third party owned domain, confirm that the subdomain record isn't configured to point to a non-existing or non-active resource/external service/endpoint.",
+        "AL2": "1. Provide evidence of DNS configuration for the target domain and subdomains, confirming that either all subdomains are explicitly defined and point to IP addresses or other domains controlled by your organization; or where the record points to a third party owned domain, confirm that the subdomain record isn't configured to point to a non-existing or non-active resource/external service/endpoint.\n2. Provide screenshots of code, configurations, or other systems referenced in the written description."
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Verify application for adherence with the requirements as defined in WSTG-CONF-10."
+      },
+      "verification": {
+        "AL1": "1. Appropriate controls to limit subdomain takeovers shall be implemented.",
+        "AL2": "1. Appropriate controls to limit subdomain takeovers shall be implemented.\n2. Screenshots shall support the controls described in the written description.\n\n\n---\n## 6.5 Do not log credentials or payment details\n### Description\nApplications must never log authentication material, such as user credentials (e.g., passwords, API keys) or payment details (e.g., credit card numbers, CVVs).\n### Rationale\nMany data privacy regulations (PCI-DSS, GDPR, etc.) explicitly prohibit the storage of sensitive authentication and financial data, especially in plaintext. In addition, avoiding logging sensitive information minimizes the overall attack surface and demonstrates a commitment to responsible data handling.\n### Audit\n\n\n---"
+      }
+    },
+    "6.5.1": {
+      "id": "6.5.1",
+      "title": "The application shall not log credentials or payment details. Session tokens shall only be stored in logs in an irreversible, hashed form.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 7.1.1",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "6.6.1": {
+      "id": "6.6.1",
+      "title": "Browser storage is securely cleared during logout",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 8.2.3",
+      "evidence": {
+        "AL1": "1. Provide a written description of what (if any) confidential data or authentication material is stored in the browser after user logout.",
+        "AL2": "1. N/A (to be collected by labs)"
+      },
+      "test_procedure": {
+        "AL1": "1. Review provided evidence for adherence with the requirements.",
+        "AL2": "1. Verify application for adherence with the requirements as defined in WSTG-CLNT-12."
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    },
+    "6.7.1": {
+      "id": "6.7.1",
+      "title": "The application shall securely store access tokens, API keys, and other server-side secrets.",
+      "external_reference": "ASVS Version 4.0.3 Requirement: 6.4.1",
+      "evidence": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "test_procedure": {
+        "AL1": "",
+        "AL2": ""
+      },
+      "verification": {
+        "AL1": "",
+        "AL2": ""
+      }
+    }
+  }
+}

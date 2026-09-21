@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Assessment Manifest",
+  "type": "object",
+  "required": ["project_name", "application_commit_sha", "assessment_mode", "casa_component_version", "authorization_status"],
+  "properties": {
+    "project_name": {"type": "string"},
+    "repository": {"type": ["string", "null"]},
+    "application_commit_sha": {"type": "string"},
+    "assessment_mode": {"enum": ["scope", "full", "retest", "evidence-pack", "delta"]},
+    "target_environment": {"type": ["string", "null"]},
+    "target_url": {"type": ["string", "null"]},
+    "authorization_status": {"enum": ["authorized-runtime", "source-review-only", "unknown"]},
+    "casa_component_version": {"type": "string"},
+    "upstream_release": {"type": "string"},
+    "specification_hash": {"type": ["string", "null"]},
+    "test_guide_hash": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

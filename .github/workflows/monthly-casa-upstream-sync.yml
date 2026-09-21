@@ -1,0 +1,101 @@
+name: Monthly CASA upstream sync
+
+on:
+  schedule:
+    - cron: '17 3 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Synchronize released CASA material
+        id: sync
+        shell: bash
+        run: |
+          set +e
+          python scripts/sync_official_spec.py --sync 2>&1 | tee /tmp/casa-sync.log
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Validate generated baseline
+        id: validate
+        if: steps.sync.outputs.exit_code == '0'
+        shell: bash
+        run: |
+          set +e
+          python scripts/validate_repo.py 2>&1 | tee /tmp/casa-validate.log
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Open issue when upstream parsing/validation fails
+        if: steps.sync.outputs.exit_code != '0' || steps.validate.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          body=$(cat /tmp/casa-sync.log 2>/dev/null; echo; cat /tmp/casa-validate.log 2>/dev/null)
+          body=$(printf '%s' "$body" | tail -c 60000)
+          gh issue create \
+            --title "CASA upstream sync requires maintainer review" \
+            --body "The scheduled CASA sync could not safely update the baseline. This commonly means the official format or requirements changed.\n\n\`\`\`text\n${body}\n\`\`\`\n\nDo not mark the skill current until the parser/mapping is reviewed."
+
+      - name: Classify synchronized changes
+        if: steps.sync.outputs.exit_code == '0' && steps.validate.outputs.exit_code == '0'
+        id: diff
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "repo_changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "repo_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+          material=$(python -c "import json; print(str(json.load(open('/tmp/casa-sync.log')).get('changed', False)).lower())")
+          echo "material_changed=$material" >> "$GITHUB_OUTPUT"
+
+      - name: Commit routine monthly provenance update
+        if: steps.diff.outputs.repo_changed == 'true' && steps.diff.outputs.material_changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add official references/casa-control-catalog.json references/casa-test-cases.generated.json
+          git commit -m "chore: record monthly CASA upstream check"
+          if ! git push origin HEAD:main; then
+            branch="bot/casa-check-${GITHUB_RUN_ID}"
+            git switch -c "$branch"
+            git push origin HEAD
+            gh pr create --base main --head "$branch" --title "chore: record monthly CASA upstream check" --body "Routine validated upstream provenance refresh. No released CASA component content change was detected."
+          fi
+
+      - name: Open review pull request for material CASA change
+        if: steps.diff.outputs.repo_changed == 'true' && steps.diff.outputs.material_changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          branch="bot/casa-upstream-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add official references/casa-control-catalog.json references/casa-test-cases.generated.json
+          git commit -m "chore: sync released CASA specification"
+          git push origin HEAD
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "chore: review released CASA specification update" \
+            --body "A monthly upstream check detected changed released CASA material from appdefensealliance/ASA-WG. Review \`official/UPSTREAM_CHANGE_REVIEW.md\`, the official release notes, generated control catalogue/test cases, and affected assessment logic before merging. This PR is intentionally not auto-merged."
