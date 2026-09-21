@@ -1,6 +1,6 @@
 ---
 name: casa-readiness
-version: 1.0.0
+version: 1.1.0
 description: >
   Perform a rigorous, evidence-backed readiness assessment against the current
   App Defense Alliance CASA specification for web applications and web-accessible
@@ -29,7 +29,8 @@ This is an **independent readiness methodology**, not an ADA laboratory assessme
 7. **Failed controls remain failed regardless of finding severity.** Severity prioritizes remediation; it does not waive CASA requirements.
 8. **No destructive testing.** Follow `references/authorized-testing.md`.
 9. **Preserve evidence.** Raw tool output, test inputs, relevant responses, screenshots and code/config references must be indexed and reproducible.
-10. **Do not claim certification.** Allowed terms are readiness assessment, pre-assessment, internal assessment, independent preparation review and similar wording.
+10. **Render professional deliverables.** A full/retest assessment must automatically produce the final report as Markdown, DOCX and PDF from one frozen source of truth. Before rendering, discover and invoke any installed professional report-writing/document-generation, document-layout and PDF-generation capability available in the executing AI environment. Follow `references/report-artifact-generation.md`.
+11. **Do not claim certification.** Allowed terms are readiness assessment, pre-assessment, internal assessment, independent preparation review and similar wording.
 
 ## 3. Required files to read before work starts
 
@@ -43,9 +44,11 @@ Read, in this order:
 6. `references/scanner-matrix.md`
 7. `references/google-oauth-verification.md`
 8. `references/reporting-standard.md`
-9. `references/casa-control-catalog.json`
-10. `references/control-test-strategy.json`
-11. the current official CASA Specification and CASA Test Guide fetched/pinned by `scripts/sync_official_spec.py`
+9. `references/report-design.md`
+10. `references/report-artifact-generation.md`
+11. `references/casa-control-catalog.json`
+12. `references/control-test-strategy.json`
+13. the current official CASA Specification and CASA Test Guide fetched/pinned by `scripts/sync_official_spec.py`
 
 If the official files are absent or the upstream check is older than 45 days and internet access exists, run:
 
@@ -284,9 +287,13 @@ For closed findings:
 
 Produce `07-retest-results.md`.
 
-## 16. Phase 11: Formal reporting
+## 16. Phase 11: Formal reporting and document generation
 
-Follow `references/reporting-standard.md` and `templates/casa-readiness-report.md`.
+Follow `references/reporting-standard.md`, `references/report-design.md`, `references/report-artifact-generation.md`, `templates/casa-readiness-report.md` and `templates/report-disclaimer.md`.
+
+Before drafting/rendering, inspect the executing environment for installed professional report-writing, document-authoring, document-layout, DOCX and PDF-generation skills/tools. If available, **invoke those capabilities** rather than improvising binary document generation. Prefer capabilities specifically intended for reports/documents and PDF export. Do not use presentation/slide tooling for the formal report.
+
+Create one canonical, frozen report content set after control conclusions and findings are finalized. Render that same content into all required formats so section text, figures, tables, findings, control counts, conclusion and disclaimers are identical in substance.
 
 The final package must include:
 
@@ -306,9 +313,21 @@ The final package must include:
 14. scanner register;
 15. evidence index;
 16. test-procedure traceability showing official AL2 procedure versus work actually performed;
-17. appendices/provenance.
+17. appendices/provenance;
+18. `10-casa-readiness-report.docx`;
+19. `10-casa-readiness-report.pdf`;
+20. `12-report-rendering-manifest.json`, recording the canonical report hash, renderer/capability used, output hashes and rendering status.
 
 The tone must be professional, factual and assurance-oriented. Avoid marketing language, unsupported confidence and generic advice.
+
+The DOCX and PDF are mandatory deliverables for `full`, `retest` and `evidence-pack` modes. For `scope` and `delta`, produce them unless the user explicitly requests lightweight output.
+
+If the executing environment genuinely cannot create DOCX or PDF:
+- do not fabricate, rename or fake binary files;
+- still produce the complete canonical Markdown report and structured source tables;
+- mark the missing artifact(s) as `BLOCKED_RENDERING` in `12-report-rendering-manifest.json`;
+- clearly disclose the rendering limitation to the user;
+- do **not** change the CASA readiness conclusion solely because of a rendering limitation.
 
 ## 17. Readiness conclusion logic
 
@@ -331,11 +350,32 @@ Use when there are Blocked/Not Tested controls, material scope uncertainty, stal
 
 Never substitute a percentage score for the conclusion. A high pass percentage does not override a failed requirement.
 
-## 18. Evidence and confidentiality
+## 18. Mandatory report disclaimers
+
+Every rendered Markdown, DOCX and PDF report must include the approved disclaimer wording from `templates/report-disclaimer.md` in these locations:
+
+1. **Cover page:** full independent-assessment / non-affiliation / non-certification notice.
+2. **Executive summary:** concise readiness and reliance disclaimer.
+3. **Conclusion section:** explicit statement that the readiness conclusion is preparatory and does not bind Google, the App Defense Alliance or an authorized laboratory.
+4. **Footer:** short form such as `Independent CASA Readiness Assessment | Not Certification`.
+
+At minimum the disclaimer must state that:
+- the review is an independent readiness/pre-assessment and is not an official CASA assessment unless expressly performed and issued by an ADA-authorized laboratory;
+- the project/author/AI agent is not affiliated with, endorsed by, or acting on behalf of Google or the App Defense Alliance;
+- the report does not grant CASA certification, Google OAuth verification, Google approval, or any assurance level;
+- Google, the App Defense Alliance and authorized laboratories determine their own verification/assessment outcomes and may request additional evidence or testing;
+- conclusions are limited to the stated scope, pinned application version/commit, environment, evidence and procedures performed as of the report date;
+- no security review can guarantee that an application is free of vulnerabilities or future compromise;
+- blocked, not-tested and out-of-scope areas remain limitations;
+- the report is not a substitute for any official laboratory report, contractual assurance, legal advice or regulatory determination.
+
+Do not use third-party audit/consulting logos or wording that implies Big Four, Google, ADA or laboratory authorship.
+
+## 19. Evidence and confidentiality
 
 Never place live passwords, OAuth client secrets, access tokens, refresh tokens, API keys, production personal data or other secrets in the report repository. Redact sensitive values and store only the minimum evidence necessary.
 
-## 19. Completion quality gate
+## 20. Completion quality gate
 
 Before final delivery verify:
 
@@ -350,5 +390,8 @@ Before final delivery verify:
 - all scanner runs have provenance;
 - raw evidence hashes are indexed;
 - remediation guidance is specific;
-- report contains a non-certification statement;
+- report contains the mandatory cover, executive-summary, conclusion and footer disclaimers;
+- canonical Markdown, DOCX and PDF report content are substantively synchronized;
+- `12-report-rendering-manifest.json` records renderer/capability and hashes, or explicitly records `BLOCKED_RENDERING`;
+- DOCX and PDF open successfully and have been visually inspected for broken tables, clipped text, page-number/footer issues and missing appendices;
 - no secrets are present in outputs.
