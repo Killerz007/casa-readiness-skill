@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 - 2026-09-21
+
+- Added a formal evidence-adjudication stage with independent-review guidance, structured adjudication records and control/finding traceability.
+- Added stable finding regression keys and a structured findings register for cross-release matching.
+- Added CASA regression CI methodology, comparison tooling, reusable workflow template and tests.
+- Added portable finding-to-ticket queue generation for GitHub/Jira workflows.
+- Added explicit external-ticket authorization and deduplication requirements; ticket closure does not equal security closure.
+- Extended formal reports to include adjudication, regression/baseline status and work-item traceability.
+
 ## 1.1.0 - 2026-09-21
 
 - Made Markdown, DOCX and PDF formal reports mandatory for full, retest and evidence-pack assessments.
