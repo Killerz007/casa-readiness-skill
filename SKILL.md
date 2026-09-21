@@ -1,6 +1,6 @@
 ---
 name: casa-readiness
-version: 1.1.0
+version: 1.2.0
 description: >
   Perform a rigorous, evidence-backed readiness assessment against the current
   App Defense Alliance CASA specification for web applications and web-accessible
@@ -29,8 +29,11 @@ This is an **independent readiness methodology**, not an ADA laboratory assessme
 7. **Failed controls remain failed regardless of finding severity.** Severity prioritizes remediation; it does not waive CASA requirements.
 8. **No destructive testing.** Follow `references/authorized-testing.md`.
 9. **Preserve evidence.** Raw tool output, test inputs, relevant responses, screenshots and code/config references must be indexed and reproducible.
-10. **Render professional deliverables.** A full/retest assessment must automatically produce the final report as Markdown, DOCX and PDF from one frozen source of truth. Before rendering, discover and invoke any installed professional report-writing/document-generation, document-layout and PDF-generation capability available in the executing AI environment. Follow `references/report-artifact-generation.md`.
-11. **Do not claim certification.** Allowed terms are readiness assessment, pre-assessment, internal assessment, independent preparation review and similar wording.
+10. **Adjudicate material conflicts.** Conflicting static/runtime/tool/reviewer evidence, challenged N/A decisions and material status upgrades require a recorded adjudication decision. Follow `references/adjudication-standard.md`.
+11. **Support regression without false assurance.** CI/regression checks compare against an accepted baseline and identify regressions; they do not automatically carry forward a prior PASS or replace AL2 testing. Follow `references/regression-ci.md`.
+12. **Separate ticket tracking from control closure.** Generate a local finding queue by default. Create external GitHub/Jira tickets only with explicit authorization. Ticket closure never substitutes for retest evidence.
+13. **Render professional deliverables.** A full/retest assessment must automatically produce the final report as Markdown, DOCX and PDF from one frozen source of truth. Before rendering, discover and invoke any installed professional report-writing/document-generation, document-layout and PDF-generation capability available in the executing AI environment. Follow `references/report-artifact-generation.md`.
+14. **Do not claim certification.** Allowed terms are readiness assessment, pre-assessment, internal assessment, independent preparation review and similar wording.
 
 ## 3. Required files to read before work starts
 
@@ -43,12 +46,15 @@ Read, in this order:
 5. `references/severity-methodology.md`
 6. `references/scanner-matrix.md`
 7. `references/google-oauth-verification.md`
-8. `references/reporting-standard.md`
-9. `references/report-design.md`
-10. `references/report-artifact-generation.md`
-11. `references/casa-control-catalog.json`
-12. `references/control-test-strategy.json`
-13. the current official CASA Specification and CASA Test Guide fetched/pinned by `scripts/sync_official_spec.py`
+8. `references/adjudication-standard.md`
+9. `references/regression-ci.md`
+10. `references/ticket-integration.md`
+11. `references/reporting-standard.md`
+12. `references/report-design.md`
+13. `references/report-artifact-generation.md`
+14. `references/casa-control-catalog.json`
+15. `references/control-test-strategy.json`
+16. the current official CASA Specification and CASA Test Guide fetched/pinned by `scripts/sync_official_spec.py`
 
 If the official files are absent or the upstream check is older than 45 days and internet access exists, run:
 
@@ -68,6 +74,7 @@ Support these modes:
 - `retest`: validate previously failed/blocked controls and findings only, plus regression testing needed to support closure.
 - `evidence-pack`: normalize existing results into the formal output package without claiming unperformed tests.
 - `delta`: assess security impact of changes since a prior pinned commit and identify which CASA controls need retesting.
+- `regression`: compare repeatable current security results against a previously accepted CASA readiness baseline, identify regressions/scope changes, and produce a regression summary. This mode does not independently establish current full CASA readiness.
 
 Default to `full` unless the user clearly requests another mode.
 
@@ -219,7 +226,33 @@ Scanner output must be adjudicated in application context. Review:
 
 False positives must be documented rather than silently deleted if they were material scanner alerts.
 
-## 12. Phase 7: Control conclusions
+## 12. Phase 7: Formal evidence adjudication
+
+Follow `references/adjudication-standard.md` and, where the environment supports it, use a fresh reviewer/agent context guided by `agents/adjudication-reviewer.md`.
+
+Adjudication is mandatory when:
+
+- static and runtime evidence disagree;
+- two tools/reviewers disagree materially;
+- a material scanner alert is proposed as a false positive;
+- a proposed PASS depends on indirect or weak evidence;
+- a material N/A decision is disputed or changes readiness;
+- finding severity/confidence differs materially between reviewers;
+- a FAIL/BLOCKED/NOT_TESTED is proposed to become PASS without clearly new supporting evidence;
+- regression comparison identifies a material change requiring interpretation.
+
+For every adjudication:
+
+1. preserve the original evidence and candidate conclusions;
+2. identify the exact official CASA criterion and test procedure considered;
+3. assess evidence representativeness, scope, recency and limitations;
+4. record the final decision and confidence;
+5. append a schema-compliant record to `04-adjudication-log.jsonl`;
+6. reference the adjudication ID from affected control/finding records.
+
+If contradictory evidence cannot be reconciled, do not choose PASS. Use BLOCKED or NOT_TESTED as appropriate.
+
+## 13. Phase 8: Control conclusions
 
 Allowed statuses:
 
@@ -233,13 +266,14 @@ Allowed statuses:
 
 Populate `04-casa-control-matrix.csv` for all controls.
 
-## 13. Phase 8: Findings
+## 14. Phase 9: Findings
 
 Create a finding for each material failed control or distinct vulnerability/control weakness. Related controls may be referenced by one finding, but every failed control must map to at least one finding.
 
 Each finding must contain:
 
 - unique ID, e.g. `CASA-F-001`;
+- deterministic `regression_key` that remains stable for the same weakness across assessments;
 - title;
 - rating;
 - status;
@@ -256,11 +290,13 @@ Each finding must contain:
 - stack-specific implementation guidance/examples;
 - compensating controls if present;
 - retest criteria;
-- evidence references.
+- evidence references;
+- adjudication references where applicable;
+- external ticket/work-item references where created.
 
 Do not overstate exploitability. Distinguish confirmed vulnerabilities from control-design gaps and documentation/evidence deficiencies.
 
-## 14. Phase 9: Remediation guidance
+## 15. Phase 10: Remediation guidance
 
 Remediation must be actionable. For each finding:
 
@@ -274,7 +310,7 @@ Remediation must be actionable. For each finding:
 
 Do not make automatic code changes unless the user separately authorizes remediation. Assessment and remediation should remain distinguishable in the evidence trail.
 
-## 15. Phase 10: Retest
+## 16. Phase 11: Retest
 
 For closed findings:
 
@@ -287,7 +323,53 @@ For closed findings:
 
 Produce `07-retest-results.md`.
 
-## 16. Phase 11: Formal reporting and document generation
+## 17. Phase 12: CASA regression baseline and CI
+
+Follow `references/regression-ci.md`.
+
+After a full/retest assessment is accepted as the application's internal readiness baseline, preserve the structured baseline outputs needed for future comparisons. Do not silently designate a baseline without the application owner's acceptance.
+
+For a `regression` or CI run:
+
+1. pin the new application commit;
+2. run only the repeatable tests/scanners that are approved for CI and clearly identify which controls they retest;
+3. produce current structured control/finding outputs for the procedures actually rerun;
+4. execute `scripts/compare_assessments.py` against the accepted baseline;
+5. classify control regressions, reopened/new findings, improvements and scope/specification changes;
+6. write `14-regression-summary.json` and `14-regression-summary.md` (or the script's regression output directory);
+7. require human review when scope/specification changes invalidate baseline evidence.
+
+A regression PASS means **no configured regression was detected in the procedures compared**. It does not mean the new commit has independently passed a full CASA assessment.
+
+Use `templates/ci/casa-regression.yml` as a target-repository starting point. Customize the project-specific scanner/test step rather than pretending this repository can know every application's build/runtime procedure.
+
+## 18. Phase 13: Finding ticket and issue integration
+
+Follow `references/ticket-integration.md`.
+
+For `full` and `retest` modes, generate a local portable queue for open findings unless `ticket_mode=off`:
+
+```bash
+python scripts/export_ticket_queue.py --assessment-dir <assessment-dir>
+```
+
+This produces:
+
+- `13-finding-ticket-queue.json`
+- `13-finding-ticket-queue.md`
+
+External GitHub Issue or Jira creation is permitted only when:
+
+- the manifest records `external_ticket_creation_authorized=true` or the user explicitly authorizes creation in the current run; and
+- the selected provider is available with write permission.
+
+Before creating a work item, search for an existing open item using the finding ID and deterministic `regression_key`. Update/reuse an existing ticket where practical rather than duplicating it.
+
+Store resulting provider/ID/URL references in the finding and remediation register.
+
+Closing a GitHub/Jira ticket does not close a CASA finding. Only the retest process can support closure.
+
+## 19. Phase 14: Formal reporting and document generation
 
 Follow `references/reporting-standard.md`, `references/report-design.md`, `references/report-artifact-generation.md`, `templates/casa-readiness-report.md` and `templates/report-disclaimer.md`.
 
@@ -329,7 +411,7 @@ If the executing environment genuinely cannot create DOCX or PDF:
 - clearly disclose the rendering limitation to the user;
 - do **not** change the CASA readiness conclusion solely because of a rendering limitation.
 
-## 17. Readiness conclusion logic
+## 20. Readiness conclusion logic
 
 Use one of these conclusions:
 
@@ -350,7 +432,7 @@ Use when there are Blocked/Not Tested controls, material scope uncertainty, stal
 
 Never substitute a percentage score for the conclusion. A high pass percentage does not override a failed requirement.
 
-## 18. Mandatory report disclaimers
+## 21. Mandatory report disclaimers
 
 Every rendered Markdown, DOCX and PDF report must include the approved disclaimer wording from `templates/report-disclaimer.md` in these locations:
 
@@ -371,11 +453,11 @@ At minimum the disclaimer must state that:
 
 Do not use third-party audit/consulting logos or wording that implies Big Four, Google, ADA or laboratory authorship.
 
-## 19. Evidence and confidentiality
+## 22. Evidence and confidentiality
 
 Never place live passwords, OAuth client secrets, access tokens, refresh tokens, API keys, production personal data or other secrets in the report repository. Redact sensitive values and store only the minimum evidence necessary.
 
-## 20. Completion quality gate
+## 23. Completion quality gate
 
 Before final delivery verify:
 
@@ -386,10 +468,15 @@ Before final delivery verify:
 - every Pass has supporting evidence;
 - every Fail maps to a finding;
 - every N/A has rationale;
+- every required material conflict/status-upgrade has an adjudication record and affected controls/findings reference it;
+- every finding has a stable regression key;
 - every Blocked/Not Tested control is disclosed;
 - all scanner runs have provenance;
 - raw evidence hashes are indexed;
 - remediation guidance is specific;
+- the local finding ticket queue is generated unless ticket_mode=off;
+- any external ticket creation was explicitly authorized, deduplicated and traceable in the remediation register;
+- regression mode/CI outputs clearly state that regression PASS is not a fresh full CASA PASS;
 - report contains the mandatory cover, executive-summary, conclusion and footer disclaimers;
 - canonical Markdown, DOCX and PDF report content are substantively synchronized;
 - `12-report-rendering-manifest.json` records renderer/capability and hashes, or explicitly records `BLOCKED_RENDERING`;
