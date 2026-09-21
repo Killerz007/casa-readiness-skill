@@ -42,7 +42,8 @@ def main():
       ('scanner-register.csv','08-scanner-register.csv'),
       ('evidence-index.csv','09-evidence-index.csv'),
       ('remediation-register.csv','06-remediation-register.csv'),
-      ('test-procedure-traceability.csv','11-test-procedure-traceability.csv')]:
+      ('test-procedure-traceability.csv','11-test-procedure-traceability.csv'),
+      ('report-rendering-manifest.json','12-report-rendering-manifest.json')]:
         (out/dst).write_text((templates/src).read_text())
     print(out)
 if __name__=='__main__': main()
