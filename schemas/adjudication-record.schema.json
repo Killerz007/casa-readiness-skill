@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CASA Adjudication Record",
+  "type": "object",
+  "required": ["adjudication_id", "control_ids", "dispute_type", "candidate_conclusions", "evidence_ids", "analysis", "final_decision", "confidence", "independence", "timestamp"],
+  "properties": {
+    "adjudication_id": {"type": "string", "pattern": "^CASA-A-[0-9]{3,}$"},
+    "control_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "finding_ids": {"type": "array", "items": {"type": "string"}},
+    "dispute_type": {"enum": ["static-runtime-conflict", "reviewer-conflict", "scanner-false-positive", "pass-evidence-challenge", "na-challenge", "severity-confidence-dispute", "status-upgrade", "regression-change", "other"]},
+    "candidate_conclusions": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "official_criterion": {"type": ["string", "null"]},
+    "official_test_procedure": {"type": ["string", "null"]},
+    "analysis": {"type": "string"},
+    "final_decision": {"enum": ["PASS", "FAIL", "N/A", "BLOCKED", "NOT_TESTED"]},
+    "confidence": {"enum": ["High", "Medium", "Low"]},
+    "limitations": {"type": ["string", "null"]},
+    "independence": {"type": "string"},
+    "timestamp": {"type": "string"}
+  },
+  "additionalProperties": true
+}
