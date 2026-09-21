@@ -2,24 +2,116 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CASA Readiness Finding",
   "type": "object",
-  "required": ["finding_id", "title", "rating", "status", "casa_controls", "audit_finding", "risk_and_implication", "recommendation", "retest_criteria"],
+  "required": [
+    "finding_id",
+    "regression_key",
+    "title",
+    "rating",
+    "status",
+    "casa_controls",
+    "audit_finding",
+    "risk_and_implication",
+    "recommendation",
+    "retest_criteria"
+  ],
   "properties": {
-    "finding_id": {"type": "string", "pattern": "^CASA-F-[0-9]{3,}$"},
-    "title": {"type": "string"},
-    "rating": {"enum": ["Critical", "High", "Medium", "Low", "Observation"]},
-    "status": {"enum": ["Open", "Partially Remediated", "Closed", "Unable to Retest"]},
-    "casa_controls": {"type": "array", "items": {"type": "string"}, "minItems": 1},
-    "cwe": {"type": "array", "items": {"type": "string"}},
-    "cvss": {"type": ["string", "null"]},
-    "affected_components": {"type": "array", "items": {"type": "string"}},
-    "confidence": {"enum": ["Confirmed", "High confidence", "Needs validation"]},
-    "audit_finding": {"type": "string"},
-    "risk_and_implication": {"type": "string"},
-    "reproduction": {"type": "string"},
-    "recommendation": {"type": "string"},
-    "implementation_guidance": {"type": "string"},
-    "retest_criteria": {"type": "string"},
-    "evidence_ids": {"type": "array", "items": {"type": "string"}}
+    "finding_id": {
+      "type": "string",
+      "pattern": "^CASA-F-[0-9]{3,}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "rating": {
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Observation"
+      ]
+    },
+    "status": {
+      "enum": [
+        "Open",
+        "Partially Remediated",
+        "Closed",
+        "Unable to Retest"
+      ]
+    },
+    "casa_controls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "cwe": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cvss": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "enum": [
+        "Confirmed",
+        "High confidence",
+        "Needs validation"
+      ]
+    },
+    "audit_finding": {
+      "type": "string"
+    },
+    "risk_and_implication": {
+      "type": "string"
+    },
+    "reproduction": {
+      "type": "string"
+    },
+    "recommendation": {
+      "type": "string"
+    },
+    "implementation_guidance": {
+      "type": "string"
+    },
+    "retest_criteria": {
+      "type": "string"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "regression_key": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Stable deterministic key used to match the same weakness across assessments, e.g. 3.1.2:authz:adult-profile-selection."
+    },
+    "adjudication_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ticket_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   },
   "additionalProperties": true
 }
