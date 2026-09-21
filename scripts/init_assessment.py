@@ -10,8 +10,9 @@ def main():
     ap.add_argument('--repository', default='')
     ap.add_argument('--environment', default='')
     ap.add_argument('--target-url', default='')
-    ap.add_argument('--mode', choices=['scope','full','retest','evidence-pack','delta'], default='full')
+    ap.add_argument('--mode', choices=['scope','full','retest','evidence-pack','delta','regression'], default='full')
     ap.add_argument('--authorization', choices=['authorized-runtime','source-review-only','unknown'], default='unknown')
+    ap.add_argument('--ticket-mode', choices=['off','queue','github','jira','auto'], default='queue')
     ap.add_argument('--output-root', default='casa-assessment')
     args=ap.parse_args()
     root=Path(__file__).resolve().parents[1]
@@ -29,6 +30,7 @@ def main():
       'target_environment':args.environment or None,
       'target_url':args.target_url or None,
       'authorization_status':args.authorization,
+      'ticket_mode':args.ticket_mode,
       'started_at_utc':datetime.now(timezone.utc).isoformat(),
       'casa_component_version':manifest['casa_component_version'],
       'upstream_release':manifest['latest_repository_release'],
@@ -39,6 +41,8 @@ def main():
     templates=root/'templates'
     for src,dst in [
       ('control-matrix.csv','04-casa-control-matrix.csv'),
+      ('adjudication-log.jsonl','04-adjudication-log.jsonl'),
+      ('findings-register.jsonl','05-findings-register.jsonl'),
       ('scanner-register.csv','08-scanner-register.csv'),
       ('evidence-index.csv','09-evidence-index.csv'),
       ('remediation-register.csv','06-remediation-register.csv'),
