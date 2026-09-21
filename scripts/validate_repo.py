@@ -15,7 +15,7 @@ def main():
     if not all(re.fullmatch(r'\d+\.\d+\.\d+',x or '') for x in ids): ok=fail('invalid control ID format') and ok
     domains={x.get('domain') for x in controls}
     if len(domains)<6: ok=fail(f'expected at least 6 CASA domains, found {len(domains)}') and ok
-    required=['README.md','SKILL.md','AGENTS.md','references/evidence-standard.md','references/authorized-testing.md','references/report-artifact-generation.md','templates/casa-readiness-report.md','templates/report-disclaimer.md','schemas/finding.schema.json','schemas/report-rendering-manifest.schema.json']
+    required=['README.md','SKILL.md','AGENTS.md','references/evidence-standard.md','references/authorized-testing.md','references/report-artifact-generation.md','templates/casa-readiness-report.md','templates/report-disclaimer.md','schemas/finding.schema.json','schemas/report-rendering-manifest.schema.json','references/adjudication-standard.md','references/regression-ci.md','references/ticket-integration.md','agents/adjudication-reviewer.md','scripts/compare_assessments.py','scripts/export_ticket_queue.py','schemas/adjudication-record.schema.json','schemas/regression-summary.schema.json','schemas/ticket-queue.schema.json','templates/ci/casa-regression.yml']
     for f in required:
         if not (ROOT/f).exists(): ok=fail(f'missing {f}') and ok
     print(f'Validated {len(controls)} controls across {len(domains)} domains; CASA {m.get("casa_component_version")}.')
