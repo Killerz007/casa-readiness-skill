@@ -1,6 +1,6 @@
-# CASA Readiness Skill
+# Google CASA Readiness Skill
 
-An AI-agent security assurance skill for assessing web applications and web-accessible APIs against the **current App Defense Alliance CASA specification** and preparing an evidence-backed readiness package for Google OAuth / CASA review.
+An open-source AI-agent skill for preparing web applications and APIs for **Google OAuth security review** and the **App Defense Alliance CASA AL2 lab assessment**. It turns code review, authorized runtime testing and scanner output into control-by-control evidence, remediation guidance, regression checks, ticket-ready findings and synchronized Markdown, DOCX and PDF reports.
 
 > **Status:** community project. Not affiliated with, endorsed by, or an approved laboratory of Google or the App Defense Alliance. It does not issue CASA certification.
 
@@ -35,15 +35,23 @@ The source of truth is always the App Defense Alliance repository:
 
 See `official/upstream-manifest.json` for the pinned provenance.
 
-## Quick use with an AI agent
+## Quick start
 
-Give the agent access to both this skill repository and the application repository, then ask:
+1. Clone this repository next to the application you want to review:
 
-```text
-Use the CASA Readiness Skill from this repository to perform a complete CASA readiness assessment of this application. Follow SKILL.md exactly. Use the latest released App Defense Alliance CASA specification, preserve raw scan evidence, and produce the complete formal assessment package. Do not claim certification.
-```
+   ```bash
+   git clone https://github.com/Killerz007/casa-readiness-skill.git
+   ```
 
-If the AI supports repository skills, point it directly at `SKILL.md`. If it does not, use `prompts/portable-agent-prompt.md`.
+2. Give your AI coding/security agent access to both repositories, then ask:
+
+   ```text
+   Use the CASA Readiness Skill from this repository to perform a complete CASA readiness assessment of this application. Follow SKILL.md exactly. Use the latest released App Defense Alliance CASA specification, preserve raw scan evidence, and produce the complete formal assessment package. Do not claim certification.
+   ```
+
+3. If the agent supports repository skills, point it directly at [`SKILL.md`](SKILL.md). Otherwise, use the [`portable-agent-prompt.md`](prompts/portable-agent-prompt.md).
+
+Dynamic testing is performed only against targets the operator is authorized to test. A source/configuration-only review can still proceed, with unsupported runtime conclusions marked Blocked.
 
 ## Expected output
 
@@ -84,6 +92,32 @@ casa-assessment/
 The report conclusion must use readiness language such as **Ready for independent CASA assessment**, **Not ready**, or **Assessment incomplete**. It must never state that the application is CASA certified unless an authorized external body has actually issued that certification.
 
 For full assessments, the AI must first discover and use an available professional report-writing/document-layout capability to generate the DOCX and PDF from the same frozen report content. The report includes mandatory independent-assessment, non-affiliation, non-certification, scope/reliance and no-security-guarantee disclaimers. See `references/report-artifact-generation.md` and `templates/report-disclaimer.md`.
+
+## Sanitized example assessment
+
+The [sanitized assessment summary](examples/sanitized-assessment-summary.md) shows the shape of a completed review: pinned scope and criteria, control totals, an evidence-linked finding, remediation and the permitted readiness conclusion. It is fictional and does not represent a certification or a completed assessment of any real application.
+
+## FAQ
+
+### What is Google CASA?
+
+CASA originated as the Cloud Application Security Assessment program. The current App Defense Alliance specification continues those application-security requirements under the ADA certification scheme. Google may use CASA as part of an application's OAuth verification or security-assessment pathway, but Google determines the pathway for each application.
+
+### Is “Tier 2” or “T2” the same as AL2?
+
+“Tier 2” and “T2” are legacy CASA terms. The current specification uses **ADA Assurance Level 2 (AL2)** for a lab assessment in which an ADA-approved lab evaluates the applicable audit test cases directly against the application. When an older request says T2, confirm the exact current requirement with Google or the assigned lab rather than assuming the terminology is interchangeable in every context.
+
+### What does AL2 mean for this skill?
+
+The skill prepares the application and evidence package against the current AL2 procedures. It can identify gaps and rehearse applicable tests, but its results remain an independent readiness assessment. Only an authorized lab can perform and issue the official lab assessment.
+
+### Does using sensitive or restricted Google OAuth scopes automatically require AL2?
+
+No. Scope classification alone does not establish the assessment path. The application's scopes, data use and architecture inform Google's verification decision; Google and the authorized lab determine the actual requirements.
+
+### Does this replace an authorized CASA lab or grant Google OAuth verification?
+
+No. It does not replace a laboratory assessment and cannot grant CASA certification, an assurance level, Google OAuth verification or Google approval. It is preparation material designed to make an eventual independent assessment more complete and reproducible.
 
 ## Monthly upstream tracking
 

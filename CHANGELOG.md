@@ -2,6 +2,7 @@
 
 ## 1.2.0 - 2026-09-21
 
+- Improved repository discovery and onboarding with a focused Google CASA/AL2 quick start, terminology FAQ and sanitized assessment example.
 - Added a formal evidence-adjudication stage with independent-review guidance, structured adjudication records and control/finding traceability.
 - Added stable finding regression keys and a structured findings register for cross-release matching.
 - Added CASA regression CI methodology, comparison tooling, reusable workflow template and tests.
