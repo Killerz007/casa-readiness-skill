@@ -2,7 +2,7 @@
   "source_repository": "appdefensealliance/ASA-WG",
   "source_repository_url": "https://github.com/appdefensealliance/ASA-WG",
   "tracking_policy": "latest published GitHub release; compare CASA component files by content hash; human review required before baseline acceptance",
-  "last_checked_utc": "2026-09-21T12:52:16.347692+00:00",
+  "last_checked_utc": "2026-10-01T03:31:11.353383+00:00",
   "latest_repository_release": "v2.2.0",
   "latest_repository_release_published_at": "2026-06-15T17:26:13Z",
   "latest_repository_release_url": "https://github.com/appdefensealliance/ASA-WG/releases/tag/v2.2.0",
