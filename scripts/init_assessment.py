@@ -36,7 +36,10 @@ def main():
       'started_at_utc':datetime.now(timezone.utc).isoformat(),
       'casa_component_version':manifest['casa_component_version'],
       'upstream_release':manifest['latest_repository_release'],
+      'upstream_release_url':manifest.get('latest_repository_release_url'),
       'upstream_release_commit_sha':manifest.get('release_commit_sha'),
+      'specification_sha256':manifest.get('files',{}).get('CASA/CASA Specification.md',{}).get('sha256'),
+      'test_guide_sha256':manifest.get('files',{}).get('CASA/CASA Test Guide.md',{}).get('sha256'),
       'official_source_last_checked_utc':manifest.get('last_checked_utc')
     }
     (out/'00-assessment-manifest.json').write_text(json.dumps(assessment,indent=2)+'\n')

@@ -1,13 +1,16 @@
 ---
 name: casa-readiness
-version: 1.2.0
+version: 1.3.0
 description: >
-  Perform a rigorous, evidence-backed readiness assessment against the current
-  App Defense Alliance CASA specification for web applications and web-accessible
-  APIs. Includes Google OAuth scope/data-flow review, static and dynamic security
-  testing, control-by-control AL2 validation, findings, remediation guidance,
-  retesting and formal assurance-style reporting. Never represents the result as
-  official CASA certification.
+  Evidence-backed readiness assessment of a web application or web-accessible API
+  against the current App Defense Alliance CASA specification (AL2). Use when the
+  user mentions CASA, Google CASA, App Defense Alliance, ADA, Google OAuth
+  verification or security assessment, restricted/sensitive OAuth scopes, Tier 2,
+  T2, AL1/AL2, or asks to prepare for or rehearse a CASA lab assessment. Covers
+  OAuth scope and data-flow review, static and dynamic security testing,
+  control-by-control validation, findings, remediation, retesting, regression
+  comparison and a formal Markdown/DOCX/PDF report. Never represents the result
+  as official CASA certification.
 ---
 
 # CASA Readiness Security Assurance Skill
@@ -37,24 +40,33 @@ This is an **independent readiness methodology**, not an ADA laboratory assessme
 
 ## 3. Required files to read before work starts
 
-Read, in this order:
+Read the files for the selected mode (section 4) before testing. Read each file once; do not reload the full official test guide into context.
+
+**Every mode (core):**
 
 1. `official/upstream-manifest.json`
 2. `references/assessment-methodology.md`
 3. `references/authorized-testing.md`
 4. `references/evidence-standard.md`
-5. `references/severity-methodology.md`
-6. `references/scanner-matrix.md`
-7. `references/google-oauth-verification.md`
-8. `references/adjudication-standard.md`
-9. `references/regression-ci.md`
-10. `references/ticket-integration.md`
-11. `references/reporting-standard.md`
-12. `references/report-design.md`
-13. `references/report-artifact-generation.md`
-14. `references/casa-control-catalog.json`
-15. `references/control-test-strategy.json`
-16. the current official CASA Specification and CASA Test Guide fetched/pinned by `scripts/sync_official_spec.py`
+5. `references/google-oauth-verification.md`
+6. `references/casa-control-catalog.json`
+
+**Modes that test or conclude controls (`full`, `retest`, `delta`, `evidence-pack`):** add
+
+7. `references/severity-methodology.md`
+8. `references/scanner-matrix.md`
+9. `references/adjudication-standard.md`
+10. `references/control-test-strategy.json`
+11. `references/casa-test-cases.generated.json` — the per-control AL2 evidence, test procedure and verification text extracted from the official test guide. Consult the entry for each control as you test it. Open `official/current/CASA-Test-Guide.md` only to resolve an ambiguity or to quote exact wording.
+
+**Modes that produce the formal report (`full`, `retest`, `evidence-pack`, and `scope`/`delta` unless lightweight output is requested):** add
+
+12. `references/reporting-standard.md`
+13. `references/report-design.md`
+14. `references/report-artifact-generation.md`
+15. `references/ticket-integration.md`
+
+**`regression` mode:** core files plus `references/regression-ci.md`.
 
 If the official files are absent or the upstream check is older than 45 days and internet access exists, run:
 
@@ -63,7 +75,7 @@ python scripts/sync_official_spec.py --sync
 python scripts/validate_repo.py
 ```
 
-If internet access is unavailable, continue only against the pinned baseline and state the age of that baseline prominently in the report.
+If internet access is unavailable, continue only against the pinned baseline and state the age of that baseline prominently in the report. If the generated catalogues look stale relative to `official/current/`, rebuild them offline with `python scripts/sync_official_spec.py --rebuild-local`.
 
 ## 4. Assessment modes
 

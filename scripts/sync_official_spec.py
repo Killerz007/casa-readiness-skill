@@ -61,12 +61,29 @@ def section_text(block,name,next_names):
     p=re.search(rf'\*\*{re.escape(name)}\*\*\s*(.*?)(?=' + lookahead + r')',block,re.S)
     return p.group(1).strip() if p else ''
 
+LEVEL_HEADING=re.compile(r'^\s*\*(AL1 and AL2|AL1|AL2)\*\s*$',re.M)
+
+def clean_text(s):
+    """Normalize a level block: trim, drop trailing markdown horizontal rules, strip line ends."""
+    lines=[x.rstrip() for x in (s or '').strip().splitlines()]
+    while lines and (re.fullmatch(r'-{3,}',lines[-1].strip()) or not lines[-1].strip()): lines.pop()
+    return '\n'.join(lines)
+
 def split_levels(text):
-    if not text: return {'AL1':'','AL2':''}
-    m1=re.search(r'\*AL1\*\s*(.*?)(?=\*AL2\*|\Z)',text,re.S)
-    m2=re.search(r'\*AL2\*\s*(.*)',text,re.S)
-    clean=lambda s:'\n'.join(x.rstrip() for x in s.strip().splitlines()) if s else ''
-    return {'AL1':clean(m1.group(1) if m1 else ''),'AL2':clean(m2.group(1) if m2 else '')}
+    """Split a section into AL1/AL2 text.
+
+    The official test guide uses three heading forms: ``*AL1*``, ``*AL2*`` and the shared
+    ``*AL1 and AL2*``. A shared block is assigned to both levels.
+    """
+    out={'AL1':'','AL2':''}
+    if not text: return out
+    parts=list(LEVEL_HEADING.finditer(text))
+    for idx,m in enumerate(parts):
+        start=m.end(); end=parts[idx+1].start() if idx+1<len(parts) else len(text)
+        body=clean_text(text[start:end])
+        for level in (['AL1','AL2'] if m.group(1)=='AL1 and AL2' else [m.group(1)]):
+            out[level]=body if not out[level] else out[level]+'\n'+body
+    return out
 
 def parse_test_guide(text):
     matches=list(re.finditer(r'^###\s+(\d+\.\d+\.\d+)\s+(.+)$',text,re.M))
@@ -101,8 +118,44 @@ def write_review(old_catalog,new_catalog,old_manifest,new_manifest):
               '- Merge only after a human confirms the generated baseline is accurate.','']
     (ROOT/'official/UPSTREAM_CHANGE_REVIEW.md').write_text('\n'.join(lines))
 
+def build_catalogues(spec,guide):
+    """Parse the official text and return (controls, tests). Raises on spec/guide mismatch or incomplete AL2 data."""
+    controls=parse_spec(spec); tests=parse_test_guide(guide)
+    spec_ids={c['id'] for c in controls}; guide_ids=set(tests)
+    if spec_ids!=guide_ids:
+        raise ValueError(f'Spec/test-guide control mismatch: only spec={sorted(spec_ids-guide_ids)}, only guide={sorted(guide_ids-spec_ids)}')
+    incomplete=sorted(k for k,v in tests.items() if not v['test_procedure']['AL2'] or not v['verification']['AL2'])
+    if incomplete: raise ValueError(f'Test-guide parser produced empty AL2 procedure/verification for {incomplete}; upstream format may have changed')
+    return controls,tests
+
+def write_catalogues(controls,tests,tag,sv,sd,gv):
+    now=datetime.now(timezone.utc).isoformat()
+    CATALOG.write_text(json.dumps({'source':'App Defense Alliance CASA Specification','source_repository':UPSTREAM,'source_release':tag,'casa_component_version':sv,'casa_component_date':sd,'generated_at':now,'controls':controls},indent=2)+'\n')
+    TEST_CASES.write_text(json.dumps({'source':'App Defense Alliance CASA Test Guide','source_repository':UPSTREAM,'source_release':tag,'casa_component_version':gv,'generated_at':now,'controls':tests},indent=2)+'\n')
+
+def rebuild_local():
+    """Regenerate catalogues from the already-pinned files in official/current without network access."""
+    manifest=json.loads(MANIFEST.read_text())
+    spec=(CURRENT/FILES['CASA/CASA Specification.md']).read_text(encoding='utf-8')
+    guide=(CURRENT/FILES['CASA/CASA Test Guide.md']).read_text(encoding='utf-8')
+    sv,sd=component_version(spec); gv,gd=component_version(guide)
+    tag=manifest['latest_repository_release']
+    controls,tests=build_catalogues(spec,guide)
+    write_catalogues(controls,tests,tag,sv,sd,gv)
+    return {'rebuilt_from':'official/current','release':tag,'casa_component_version':sv,'control_count':len(controls)}
+
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--sync',action='store_true'); ap.add_argument('--check',action='store_true'); args=ap.parse_args()
+    ap=argparse.ArgumentParser()
+    ap.add_argument('--sync',action='store_true',help='download the latest released CASA files and rebuild catalogues')
+    ap.add_argument('--check',action='store_true',help='report whether released CASA material changed; exit 2 if so')
+    ap.add_argument('--rebuild-local',action='store_true',help='rebuild catalogues from official/current without network access')
+    ap.add_argument('--summary-json',default='',help='also write the result summary to this file (for CI)')
+    args=ap.parse_args()
+    if args.rebuild_local:
+        summary=rebuild_local()
+        print(json.dumps(summary,indent=2))
+        if args.summary_json: Path(args.summary_json).write_text(json.dumps(summary)+'\n')
+        return 0
     release=get_json(f'https://api.github.com/repos/{UPSTREAM}/releases/latest')
     tag=release['tag_name']
     blobs={}; contents={}
@@ -115,10 +168,7 @@ def main():
     guide=contents['CASA/CASA Test Guide.md'].decode('utf-8')
     sv,sd=component_version(spec); gv,gd=component_version(guide)
     if (sv,sd)!=(gv,gd): raise ValueError(f'Spec/test-guide version mismatch: {sv} {sd} vs {gv} {gd}')
-    controls=parse_spec(spec); tests=parse_test_guide(guide)
-    spec_ids={c['id'] for c in controls}; guide_ids=set(tests)
-    if spec_ids!=guide_ids:
-        raise ValueError(f'Spec/test-guide control mismatch: only spec={sorted(spec_ids-guide_ids)}, only guide={sorted(guide_ids-spec_ids)}')
+    controls,tests=build_catalogues(spec,guide)
     old_manifest=json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {}
     old_catalog=json.loads(CATALOG.read_text()) if CATALOG.exists() else {}
     new_manifest={
@@ -132,21 +182,23 @@ def main():
       'casa_component_version':sv,
       'casa_component_date':sd,
       'control_count':len(controls),
+      'release_commit_sha':release.get('target_commitish') or None,
       'files':blobs
     }
     changed=any(old_manifest.get('files',{}).get(p,{}).get('git_blob_sha')!=v['git_blob_sha'] for p,v in blobs.items()) or old_manifest.get('casa_component_version')!=sv
+    summary={'changed':changed,'release':tag,'casa_component_version':sv,'control_count':len(controls)}
+    if args.summary_json: Path(args.summary_json).write_text(json.dumps(summary)+'\n')
     if args.check:
-        print(json.dumps({'changed':changed,'release':tag,'casa_component_version':sv,'control_count':len(controls)},indent=2)); return 2 if changed else 0
+        print(json.dumps(summary,indent=2)); return 2 if changed else 0
     if not args.sync:
         print('Use --sync or --check',file=sys.stderr); return 64
     if changed:
         write_review(old_catalog,{'controls':controls},old_manifest,new_manifest)
     CURRENT.mkdir(parents=True,exist_ok=True)
     for upstream,local in FILES.items(): (CURRENT/local).write_bytes(contents[upstream])
-    CATALOG.write_text(json.dumps({'source':'App Defense Alliance CASA Specification','source_repository':UPSTREAM,'source_release':tag,'casa_component_version':sv,'casa_component_date':sd,'generated_at':datetime.now(timezone.utc).isoformat(),'controls':controls},indent=2)+'\n')
-    TEST_CASES.write_text(json.dumps({'source':'App Defense Alliance CASA Test Guide','source_repository':UPSTREAM,'source_release':tag,'casa_component_version':gv,'generated_at':datetime.now(timezone.utc).isoformat(),'controls':tests},indent=2)+'\n')
+    write_catalogues(controls,tests,tag,sv,sd,gv)
     MANIFEST.write_text(json.dumps(new_manifest,indent=2)+'\n')
-    print(json.dumps({'changed':changed,'release':tag,'casa_component_version':sv,'control_count':len(controls)},indent=2))
+    print(json.dumps(summary,indent=2))
     return 0
 if __name__=='__main__':
     try: sys.exit(main() or 0)

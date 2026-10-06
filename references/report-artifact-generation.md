@@ -23,6 +23,30 @@ Where the environment exposes separate document-writing, document-layout, data-v
 
 Do not use slide/presentation tooling for the formal report.
 
+## Toolchain fallback when no document skill is installed
+
+Most agents outside a few hosted environments have no DOCX or PDF skill. That is not by itself a reason to record `BLOCKED_RENDERING`. If a shell is available, use a plain toolchain, in this order of preference:
+
+1. **Pandoc** for DOCX from the canonical Markdown, optionally with `--reference-doc` for house styling and `--toc` for a table of contents:
+
+   ```bash
+   pandoc 10-casa-readiness-report.md --from gfm --to docx --toc --output 10-casa-readiness-report.docx
+   ```
+
+2. **PDF** from the same Markdown via one of:
+   - Pandoc with a PDF engine (`--pdf-engine=xelatex`, `wkhtmltopdf`, `weasyprint` or `typst`), or
+   - LibreOffice headless converting the DOCX just produced:
+
+     ```bash
+     soffice --headless --convert-to pdf 10-casa-readiness-report.docx
+     ```
+
+   - a headless browser printing an HTML render of the Markdown (Chromium `--headless --print-to-pdf`).
+
+3. **Python** libraries (`python-docx`, `reportlab`, `weasyprint`) as a last resort when neither Pandoc nor LibreOffice can be installed.
+
+Record which tool and version produced each artifact in the rendering manifest. If none of the above can be installed or run, only then record `BLOCKED_RENDERING` for the affected format.
+
 ## Canonical-content rule
 
 Before rendering:

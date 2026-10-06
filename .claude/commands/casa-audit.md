@@ -1,1 +1,6 @@
+---
+description: Run a CASA readiness assessment of this application using the casa-readiness skill
+---
 Read `SKILL.md` in the CASA Readiness Skill repository and execute the requested assessment mode exactly. Treat the official App Defense Alliance CASA specification/test guide as primary criteria, preserve evidence, and do not claim certification.
+
+Mode and options: $ARGUMENTS
