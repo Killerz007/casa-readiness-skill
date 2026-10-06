@@ -36,4 +36,19 @@ class RegressionTests(unittest.TestCase):
             p=subprocess.run([sys.executable,str(SCRIPT),'--baseline',str(baseline),'--current',str(current),'--output',str(out),'--partial'],capture_output=True,text=True)
             self.assertEqual(p.returncode,0,p.stdout+p.stderr)
 
+    def test_sample_fixture_compares_cleanly_against_itself(self):
+        sample=ROOT/'examples/sample-assessment'
+        with tempfile.TemporaryDirectory() as td:
+            p=subprocess.run([sys.executable,str(SCRIPT),'--baseline',str(sample),'--current',str(sample),'--output',td],capture_output=True,text=True)
+            self.assertEqual(p.returncode,0,p.stdout+p.stderr)
+            result=json.loads((Path(td)/'regression-summary.json').read_text())
+            self.assertEqual(result['result'],'PASS')
+            self.assertEqual(result['blocking_regressions'],[])
+
+    def test_sample_fixture_covers_every_official_control(self):
+        catalog=json.loads((ROOT/'references/casa-control-catalog.json').read_text(encoding='utf-8'))
+        with (ROOT/'examples/sample-assessment/04-casa-control-matrix.csv').open(newline='',encoding='utf-8') as f:
+            rows={r['control_id'] for r in csv.DictReader(f)}
+        self.assertEqual(rows,{c['id'] for c in catalog['controls']})
+
 if __name__=='__main__': unittest.main()

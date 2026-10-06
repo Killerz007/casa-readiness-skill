@@ -1,0 +1,16 @@
+{
+  "project_name": "Example Calendar Sync",
+  "repository": "https://github.com/example/calendar-sync",
+  "application_commit_sha": "0123456789abcdef0123456789abcdef01234567",
+  "assessment_mode": "full",
+  "target_environment": "staging",
+  "target_url": "https://staging.example.test",
+  "authorization_status": "authorized-runtime",
+  "ticket_mode": "queue",
+  "external_ticket_creation_authorized": false,
+  "started_at_utc": "2026-09-21T09:00:00+00:00",
+  "casa_component_version": "2.1.1",
+  "upstream_release": "v2.2.0",
+  "official_source_last_checked_utc": "2026-09-21T08:55:00+00:00",
+  "note": "Fictional sample used by tests and documentation. Not a real assessment."
+}

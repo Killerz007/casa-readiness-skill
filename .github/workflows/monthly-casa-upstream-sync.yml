@@ -18,12 +18,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Synchronize released CASA material
         id: sync
         shell: bash
         run: |
           set +e
-          python scripts/sync_official_spec.py --sync 2>&1 | tee /tmp/casa-sync.log
+          python scripts/sync_official_spec.py --sync --summary-json /tmp/casa-sync-summary.json 2>&1 | tee /tmp/casa-sync.log
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -34,7 +38,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          python scripts/validate_repo.py 2>&1 | tee /tmp/casa-validate.log
+          { python scripts/validate_repo.py && python -m unittest discover -s tests -p 'test_*.py'; } 2>&1 | tee /tmp/casa-validate.log
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -61,7 +65,7 @@ jobs:
           else
             echo "repo_changed=true" >> "$GITHUB_OUTPUT"
           fi
-          material=$(python -c "import json; print(str(json.load(open('/tmp/casa-sync.log')).get('changed', False)).lower())")
+          material=$(python -c "import json; print(str(json.load(open('/tmp/casa-sync-summary.json')).get('changed', False)).lower())")
           echo "material_changed=$material" >> "$GITHUB_OUTPUT"
 
       - name: Commit routine monthly provenance update

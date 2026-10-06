@@ -1,4 +1,4 @@
-.PHONY: validate sync init
+.PHONY: validate sync rebuild init
 
 validate:
 	python scripts/validate_repo.py
@@ -6,6 +6,11 @@ validate:
 
 sync:
 	python scripts/sync_official_spec.py --sync
+	python scripts/validate_repo.py
+
+# Regenerate the control/test-case catalogues from the pinned files in official/current (no network).
+rebuild:
+	python scripts/sync_official_spec.py --rebuild-local
 	python scripts/validate_repo.py
 
 init:

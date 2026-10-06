@@ -37,19 +37,38 @@ See `official/upstream-manifest.json` for the pinned provenance.
 
 ## Quick start
 
-1. Clone this repository next to the application you want to review:
+1. Clone this repository:
 
    ```bash
    git clone https://github.com/Killerz007/casa-readiness-skill.git
    ```
 
-2. Give your AI coding/security agent access to both repositories, then ask:
+2. Install it where your agent will find it (see the table below), or simply give the agent access to both this repository and the application repository.
+
+3. Ask the agent:
 
    ```text
-   Use the CASA Readiness Skill from this repository to perform a complete CASA readiness assessment of this application. Follow SKILL.md exactly. Use the latest released App Defense Alliance CASA specification, preserve raw scan evidence, and produce the complete formal assessment package. Do not claim certification.
+   Use the CASA Readiness Skill to perform a complete CASA readiness assessment of this application. Follow SKILL.md exactly. Use the latest released App Defense Alliance CASA specification, preserve raw scan evidence, and produce the complete formal assessment package. Do not claim certification.
    ```
 
-3. If the agent supports repository skills, point it directly at [`SKILL.md`](SKILL.md). Otherwise, use the [`portable-agent-prompt.md`](prompts/portable-agent-prompt.md).
+   If the agent cannot load skills or instruction files, paste [`prompts/portable-agent-prompt.md`](prompts/portable-agent-prompt.md) instead.
+
+### Install per agent
+
+The methodology lives in [`SKILL.md`](SKILL.md) and is agent-neutral. Each agent discovers instructions differently, so put the pointer where that agent looks:
+
+| Agent | Where it looks | What to do |
+|---|---|---|
+| Claude Code | `~/.claude/skills/<name>/SKILL.md` or `<app>/.claude/skills/<name>/SKILL.md` | Clone this repo to `~/.claude/skills/casa-readiness` (the repo root *is* the skill folder). Optionally copy `.claude/commands/casa-audit.md` into the app's `.claude/commands/` for a `/casa-audit` command. |
+| OpenAI Codex / any `AGENTS.md` reader | `<app>/AGENTS.md` | Add one line to the app's `AGENTS.md` pointing at the cloned `SKILL.md`, or copy this repo's `AGENTS.md` content into it. |
+| Cursor | `<app>/.cursor/rules/*.mdc` | Copy `.cursor/rules/casa-readiness.mdc` into the app repo and set the path to the cloned `SKILL.md`. |
+| GitHub Copilot | `<app>/.github/copilot-instructions.md` | Add the one-line pointer from `adapters/ai-compatibility.md`. |
+| Gemini CLI | `<app>/GEMINI.md` | Add the one-line pointer from `adapters/ai-compatibility.md`. |
+| Windsurf | `<app>/.windsurfrules` | Add the one-line pointer from `adapters/ai-compatibility.md`. |
+| Other agent skill loaders (`npx skills add`, Agent Skills format) | the tool's skills directory | Install this repository as a skill named `casa-readiness`; `SKILL.md` follows the Agent Skills frontmatter convention. |
+| ChatGPT / web agents with GitHub access | none | Give the repository URL and use the portable prompt. |
+
+In every case the agent still needs read access to the application repository, a shell with the scanners you want it to run, and an authorized runtime target for dynamic testing.
 
 Dynamic testing is performed only against targets the operator is authorized to test. A source/configuration-only review can still proceed, with unsupported runtime conclusions marked Blocked.
 

@@ -32,4 +32,11 @@ class TicketQueueTests(unittest.TestCase):
             self.assertEqual(len(queue['tickets']),1)
             self.assertEqual(queue['tickets'][0]['regression_key'],'3.1.1:authz:test')
 
+    def test_sample_fixture_exports_queue(self):
+        with tempfile.TemporaryDirectory() as td:
+            p=subprocess.run([sys.executable,str(SCRIPT),'--assessment-dir',str(ROOT/'examples/sample-assessment'),'--output',td],capture_output=True,text=True)
+            self.assertEqual(p.returncode,0,p.stdout+p.stderr)
+            queue=json.loads((Path(td)/'13-finding-ticket-queue.json').read_text())
+            self.assertEqual([t['finding_id'] for t in queue['tickets']],['CASA-F-001'])
+
 if __name__=='__main__': unittest.main()
